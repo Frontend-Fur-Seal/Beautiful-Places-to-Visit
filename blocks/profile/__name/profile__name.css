@@ -1,0 +1,8 @@
+.profile__name{
+    font-size: 42px;
+    line-height: 48px;
+    margin: 0;
+    align-self: flex-end;
+}
+
+/*Добавить начертание 500 для имени*/

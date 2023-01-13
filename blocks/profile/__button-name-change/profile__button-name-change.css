@@ -1,0 +1,17 @@
+.profile__button-name-change{
+    width: 24px;
+    height: 24px;
+    line-height: 48px;
+    background: #000 url(../../../images/change-name.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid #fff;
+    padding: 0;
+    margin-left: 18px;
+    box-sizing: border-box;
+}
+
+.profile__button-name-change:hover{
+    cursor: pointer;
+    opacity: .6;
+}

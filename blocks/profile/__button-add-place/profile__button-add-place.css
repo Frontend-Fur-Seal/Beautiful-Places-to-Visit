@@ -1,0 +1,17 @@
+.profile__button-add-place{
+    width: 150px;
+    height: 50px;
+    background: #000 url(../../../images/add-place.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid #fff;
+    padding: 0;
+    grid-area: add-place;
+    align-self: center;
+    justify-self: end;
+}
+
+.profile__button-add-place:hover{
+    cursor: pointer;
+    opacity: .6;
+}

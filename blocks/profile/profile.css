@@ -1,0 +1,19 @@
+.profile{
+    max-width: 880px;
+    min-height: 120px;
+    margin: 0 auto 50px;
+    display: grid;
+    grid-template-areas: 
+    "avatar name add-place"
+    "avatar occupation add-place";
+    row-gap: 16px;
+    column-gap: 30px;
+    grid-template-columns: max-content 1fr max-content;
+}
+
+@media screen and (max-width: 900px) {
+    .profile{
+
+    }
+}
+
