@@ -9,5 +9,13 @@
 @import url(../blocks/profile/__button-name-change/profile__button-name-change.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__occupation/profile__occupation.css);
+@import url(../blocks/elements/elements.css);
+@import url(../blocks/element/element.css);
+@import url(../blocks/element/__like-label/element__like-label.css);
+@import url(../blocks/element/__like/element__like.css);
+@import url(../blocks/element/__name/element__name.css);
+@import url(../blocks/element/__info/element__info.css);
+@import url(../blocks/element/__photo/element__photo.css);
+@import url(../blocks/element/__like-label/_active/element__like-label_active.css);
 
 @import url(../blocks/footer/footer.css);
