@@ -13,7 +13,16 @@
 
 @media screen and (max-width: 900px) {
     .profile{
-
+        grid-template-areas: 
+        "avatar" 
+        "name"
+        "occupation"
+        "add-place";
+        grid-template-columns: 282px;
+        justify-items: center;
+        justify-content: center;
+        row-gap: 14px;
+        margin: 0 auto 36px;
     }
 }
 

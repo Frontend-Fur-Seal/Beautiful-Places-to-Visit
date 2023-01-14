@@ -4,6 +4,7 @@
     background: #000 url(../../../images/add-place.png);
     background-repeat: no-repeat;
     background-position: center;
+    background-size: 22px 22px;
     border: 1px solid #fff;
     padding: 0;
     grid-area: add-place;
@@ -15,3 +16,13 @@
     cursor: pointer;
     opacity: .6;
 }
+
+@media screen and (max-width: 900px) {
+    .profile__button-add-place{
+        justify-self: center;
+        width: 100%;
+        margin-top: 22px;
+        background-size: 16px 16px;
+    }
+}
+
