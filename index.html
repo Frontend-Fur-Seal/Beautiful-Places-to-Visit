@@ -13,9 +13,18 @@
     <main class="content">
       <section class="profile">
         <img src="images/avatar.jpg" alt="фотография профиля" class="profile__avatar">
-        <p class="profile__name">Elena Voralberg<button class="profile__button-name-change"></button></p>
+        <p class="profile__name"><span class="profile__change-name">Elena Voralberg</span><button class="profile__button-name-change"></button></p>
         <p class="profile__occupation">Software Engineer</p>
         <button class="profile__button-add-place"></button>
+      </section>
+      <section class="popup">
+        <form class="popup__container">
+          <p class="popup__title">Редактировать профиль</p>
+          <input type="text" class="popup__name">
+          <input type="text" class="popup__occupation">
+          <button type="submit" class="popup__submit">Сохранить</button>
+          <button class="popup__reset" type="reset"></button>
+        </form>
       </section>
       <section class="elements">
         <article class="element">

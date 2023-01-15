@@ -1,0 +1,25 @@
+.popup__reset{
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    background: url(../../../images/reset-button.png);
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+}
+
+.popup__reset:hover{
+    opacity: .8;
+}
+
+@media screen and (max-width: 720px) {
+    .popup__reset{
+        width: 20px;
+        height: 20px;
+        right: 0;
+        top: -36px;
+    }
+}
