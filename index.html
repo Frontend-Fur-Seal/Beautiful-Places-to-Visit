@@ -12,14 +12,68 @@
     </header>
     <main class="content">
       <section class="profile">
-       
+        <img src="images/avatar.jpg" alt="фотография профиля" class="profile__avatar">
+        <p class="profile__name"><span class="profile__change-name">Elena Voralberg</span><button class="profile__button-name-change"></button></p>
+        <p class="profile__occupation">Software Engineer</p>
+        <button class="profile__button-add-place"></button>
+      </section>
+      <section class="popup">
+        <form class="popup__container">
+          <p class="popup__title">Редактировать профиль</p>
+          <input type="text" class="popup__name">
+          <input type="text" class="popup__occupation">
+          <button type="submit" class="popup__submit">Сохранить</button>
+          <button class="popup__reset" type="reset"></button>
+        </form>
       </section>
       <section class="elements">
-     
+        <article class="element">
+          <img src="images/kamchatka.jpg" alt="Камчатка" class="element__photo">
+          <div class="element__info">
+            <h2 class="element__name">Камчатка</h2>
+            <label class="element__like-label"><input type="checkbox" class="element__like"></label>
+          </div>
+        </article>
+        <article class="element">
+          <img src="images/solovky.jpg" alt="Соловки" class="element__photo">
+          <div class="element__info">
+          <h2 class="element__name">Соловецкие острова</h2>
+          <label class="element__like-label"><input type="checkbox" class="element__like"></label>
+          </div>
+        </article>
+        <article class="element">
+          <img src="images/ruskeala.jpg" alt="Рускеала" class="element__photo">
+          <div class="element__info">
+          <h2 class="element__name">Рускеала</h2>
+          <label class="element__like-label"><input type="checkbox" class="element__like"></label>
+          </div>
+        </article>
+        <article class="element">
+          <img src="images/plato-putorana.jpg" alt="Плато-Путорана" class="element__photo">
+          <div class="element__info">
+          <h2 class="element__name">Плато-Путорана</h2>
+          <label class="element__like-label"><input type="checkbox" class="element__like"></label>
+          </div>
+        </article>
+        <article class="element">
+          <img src="images/ladozhskoe-ozero.jpg" alt="Ладожское озеро" class="element__photo">
+          <div class="element__info">
+          <h2 class="element__name">Ладожское озеро</h2>
+          <label class="element__like-label"><input type="checkbox" class="element__like"></label>
+          </div>
+        </article>
+        <article class="element">
+          <img src="images/kola-peninsula.jpg" alt="Кольский полуостров" class="element__photo">
+          <div class="element__info">
+          <h2 class="element__name">Кольский полуостров</h2>
+          <label class="element__like-label"><input type="checkbox" class="element__like"></label>
+          </div>
+        </article>
       </section>
     </main>
     <footer class="footer">
-    
+      <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
     </footer>
+    <script src="pages/index.js"></script>
 </body>
 </html>
