@@ -16,7 +16,7 @@
 @import url(../blocks/popup/__name/popup__name.css);
 @import url(../blocks/popup/__occupation/popup__occupation.css);
 @import url(../blocks/popup/__submit/popup__submit.css);
-@import url(../blocks/popup/__reset/popup__reset.css);
+@import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__like-label/element__like-label.css);
