@@ -1,4 +1,4 @@
-.popup__reset{
+.popup__close{
     position: absolute;
     right: -40px;
     top: -40px;
@@ -11,12 +11,12 @@
     border: none;
 }
 
-.popup__reset:hover{
+.popup__close:hover{
     opacity: .8;
 }
 
 @media screen and (max-width: 720px) {
-    .popup__reset{
+    .popup__close{
         width: 20px;
         height: 20px;
         right: 0;
