@@ -17,5 +17,5 @@
 @import url(../blocks/element/__info/element__info.css);
 @import url(../blocks/element/__photo/element__photo.css);
 @import url(../blocks/element/__like-label/_active/element__like-label_active.css);
-
 @import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
