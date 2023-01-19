@@ -8,7 +8,6 @@
 
 ### Java-Script: 
 * редактирование данных пользователя во всплывающем окне;
-* возможность ставить like понравившемуся месту;
 
 * [Сайт на github-pages](https://vladimirsherstnev.github.io/Beautiful-Places-to-Visit-in-Russia/)
 
