@@ -5,6 +5,7 @@
   let form = document.querySelector(".popup__form");
   let popupName = form.querySelector(".popup__content_type_name");
   let popupOccupation = form.querySelector(".popup__content_type_occupation");
+  let closePopup = popup.querySelector(".popup__close");
 
 
 function popupOpen(){
@@ -27,7 +28,7 @@ function handleFormReset(){
 
 buttonNameChange.addEventListener("click", popupOpen);
 form.addEventListener("submit", handleFormSubmit);
-popup.addEventListener("reset", handleFormReset);
+closePopup.addEventListener("click", handleFormReset);
 
 
 
