@@ -2,7 +2,7 @@
   max-width: 880px;
   min-height: 74px;
   margin: 45px auto 40px;
-  border-bottom: 1px solid #545454;
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
   box-sizing: border-box;
 }
 
@@ -11,7 +11,7 @@
     .header{
       max-width: 100%;
       min-height: 56px;
-      margin: 28px 0 74px;
+      margin: 28px 0 42px;
     }
 }
 
