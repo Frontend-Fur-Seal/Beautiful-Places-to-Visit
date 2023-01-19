@@ -1,10 +1,10 @@
-  let profileName = document.querySelector(".profile__change-name");
+  let profileName = document.querySelector(".profile__name");
   let profileOccupation = document.querySelector(".profile__occupation");
   let buttonNameChange = document.querySelector(".profile__button-name-change");
   let popup = document.querySelector(".popup");
-  let form = document.querySelector(".popup__container");
-  let popupName = form.querySelector(".popup__name");
-  let popupOccupation = form.querySelector(".popup__occupation");
+  let form = document.querySelector(".popup__form");
+  let popupName = form.querySelector(".popup__content_type_name");
+  let popupOccupation = form.querySelector(".popup__content_type_occupation");
 
 
 function popupOpen(){
@@ -27,6 +27,7 @@ function handleFormReset(){
 
 buttonNameChange.addEventListener("click", popupOpen);
 form.addEventListener("submit", handleFormSubmit);
-form.addEventListener("reset", handleFormReset);
+popup.addEventListener("reset", handleFormReset);
+
 
 
