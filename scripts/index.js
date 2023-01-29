@@ -74,7 +74,7 @@ function addPlace(){
 
   const newElement = elementTemplate.querySelector('.element').cloneNode(true);
   newElement.querySelector('.element__photo').src = popupOccupation.value;
-  if(!(popupOccupation.value.includes('Http'))){
+  if(!(popupOccupation.value.includes('http'))){
     newElement.querySelector('.element__photo').src = 'images/not-photo.jpg';
   }
   newElement.querySelector('.element__name').textContent = popupName.value;
