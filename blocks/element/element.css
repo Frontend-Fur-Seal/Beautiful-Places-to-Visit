@@ -5,4 +5,5 @@
     color: #000;
     border-radius: 10px;
     overflow: hidden;
+    object-position: center top;
 }
