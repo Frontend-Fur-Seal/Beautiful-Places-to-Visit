@@ -7,7 +7,6 @@
   let popupName = form.querySelector(".popup__content_type_name");
   let popupOccupation = form.querySelector(".popup__content_type_occupation");
   let closePopup = popup.querySelector(".popup__close");
-  let elementPhoto = document.querySelector('.element__photo');
 
 function popupOpen(){
   popup.classList.add("popup_opened");
@@ -79,6 +78,9 @@ function addPlace(){
     newElement.querySelector('.element__photo').src = 'images/not-photo.jpg';
   }
   newElement.querySelector('.element__name').textContent = popupName.value;
+  if(!(newElement.querySelector('.element__name').textContent)){
+    newElement.querySelector('.element__name').textContent = 'Лихолесье';
+  }
   elements.prepend(newElement); 
     
 }
