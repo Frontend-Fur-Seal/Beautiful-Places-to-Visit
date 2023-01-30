@@ -9,16 +9,18 @@
   let popupName = form.querySelector(".popup__content_type_name");
   let popupOccupation = form.querySelector(".popup__content_type_occupation");
   
-  let popup = document.querySelector('.popup');
+  let popup = document.querySelectorAll('.popup');
 
   let popupNamePlace = form.querySelector(".popup__content_type_name-place");
   let popupLink = form.querySelector('.popup__content_type_link');
+  let popupFullPhoto = document.querySelector('.popup_full-img');
 
-  let closePopup = document.querySelector(".popup__close");
+  let closePopup = document.querySelectorAll(".popup__close");
 
-
+  let elementPhoto = document.querySelector('.element__photo');
+  
 function popupOpen(popupType){
-  popupType.classList.toggle('popup_opened');
+  popupType.classList.add('popup_opened');
   
   if(popupType.className.includes('name-change')){
     popupName.value = profileName.textContent;
@@ -26,14 +28,16 @@ function popupOpen(popupType){
   }
 }
 
+function popupClose(){
+  this.classList.remove('popup_opened');
+}
 
+for(elem of popup){
+  elem.addEventListener('click', popupClose);
+}
 buttonNameChange.addEventListener('click', () => popupOpen(popupChangeName));
 buttonAddPlace.addEventListener('click', () => popupOpen(popupAddPlace));
-
-
-
-
-
+elementPhoto.addEventListener('click', () => popupOpen(popupFullPhoto));
 
 
 const initialCards = [
@@ -84,7 +88,7 @@ function templateCard(){
 
 templateCard();
 
-
+elementPhoto.addEventListener('click', () => popupOpen(popupFullPhoto));
 /*
 function makePlace(name, link){
 
