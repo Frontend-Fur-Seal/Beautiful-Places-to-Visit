@@ -1,9 +1,6 @@
 .popup__container_full-img{
     position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 75vw;
-    min-height: 75vh;
     padding: 0;
     border-radius: 0;
+    background-color: transparent;
 }

@@ -2,34 +2,31 @@
   let profileOccupation = document.querySelector(".profile__occupation");
   let buttonNameChange = document.querySelector(".profile__button-name-change");
   let buttonAddPlace = document.querySelector(".profile__button-add-place");
-
   let popupChangeName = document.querySelector('.popup_name-change');
   let popupAddPlace = document.querySelector('.popup_add-place');
-
   let formDetails = document.forms.persDetails;
   let popupName = formDetails.querySelector(".popup__content_type_name");
   let popupOccupation = formDetails.querySelector(".popup__content_type_occupation");
-
+  let forms = document.querySelectorAll('.popup__form');
   let popupContainer = document.querySelector('.popup__container');
-
   let formAddPlace = document.forms.addPlace;
   let popupNamePlace = formAddPlace.querySelector(".popup__content_type_name-place");
   let popupLink = formAddPlace.querySelector('.popup__content_type_link');
-  
   let popupFullPhoto = document.querySelector('.popup_full-img');
-
   let closePopup = document.querySelector(".popup__close");
-
   let submitPopup = document.querySelector('.popup__submit');
-
   const elementTemplate = document.querySelector('#element-template').content.querySelector('.element');
   const elements = document.querySelector('.elements');
+  let popup = document.querySelectorAll('.popup');
 
+// функция открытия попапа добавление карточки
 
 function popupOpnAddPlace(){
   popupAddPlace.classList.add('popup_opened');
 
 }
+
+// функция открытия попапа изменение данных профиля
 
 function popupOpnProfileEdit(){
   popupChangeName.classList.add('popup_opened');
@@ -37,43 +34,39 @@ function popupOpnProfileEdit(){
   popupOccupation.value = profileOccupation.textContent;
 }
 
+// функция открытия попапа с картинкой
 
-function popupOpnFullImg(){
-  popupFullPhoto.classList.add('popup_opened');
+function popupOpnFullImg(e){
   
+  popupFullPhoto.classList.add('popup_opened');
+  popupFullPhoto.querySelector('.popup__image').src = e.target.src;
+
+  popupFullPhoto.querySelector('.popup__figcaption').textContent = e.target.getAttribute('alt');
+
 }
 
-let popup = document.querySelectorAll('.popup');
-
-//кнопка удаления попапа
+//функция удаления попапа крестиком
 
 function popupCloseBtn(){
 
   popup.forEach(elem => {
-    elem.querySelector('.popup__close').addEventListener('click', closePopupButton)
+    elem.querySelector('.popup__close').addEventListener('click', (e) => {
+      e.target.closest('.popup').classList.remove('popup_opened');
+    })
   });
 
 }
+
+//функция удаления попапа после сабмита
 
 function popupCloseSub(){
-  popup.forEach(elem => {
-    elem.querySelector('.popup__submit').addEventListener('click', closePopupButton)
-  });
+  forms.forEach(elem => {
+    elem.querySelector('.popup__submit').addEventListener('click', (e) => {
+      e.target.closest('.popup').classList.remove('popup_opened');
+  })
+});  
+
 }
-
-function closePopupButton(e){
-  console.log('jjj');
-  e.target.closest('.popup').classList.remove('popup_opened');
-}
-
-
-popupCloseBtn();
-
-//Слушатели клика на кнопки открывающие формы
-
-buttonNameChange.addEventListener('click', popupOpnProfileEdit);
-buttonAddPlace.addEventListener('click', popupOpnAddPlace);
-
 
 const initialCards = [
   {
@@ -133,6 +126,7 @@ function createCards(item){
   const card = elementTemplate.cloneNode(true);
   card.querySelector('.element__name').textContent = item.name;
   card.querySelector('.element__photo').src = item.link;
+  card.querySelector('.element__photo').setAttribute('alt', item.name);
   card.querySelector('.element__photo').addEventListener('click', popupOpnFullImg);
   card.querySelector('.element__like').addEventListener('click', addLike);
   card.querySelector('.element__delete').addEventListener('click', elementDelete);
@@ -181,12 +175,18 @@ function handleFormSubmitDetails(evt) {
     popupCloseSub()
 }
 
+//вызов функции закрытия попапов
+
+popupCloseBtn();
+popupCloseSub();
+
 
 //слушатели на кнопки сабмит попапов с формами
 
 formAddPlace.addEventListener("submit", handleFormSubmitPlace);
 formDetails.addEventListener("submit", handleFormSubmitDetails);
 
+//Слушатели клика на кнопки открывающие формы
 
-
-
+buttonNameChange.addEventListener('click', popupOpnProfileEdit);
+buttonAddPlace.addEventListener('click', popupOpnAddPlace);
