@@ -5,50 +5,74 @@
 
   let popupChangeName = document.querySelector('.popup_name-change');
   let popupAddPlace = document.querySelector('.popup_add-place');
-  let form = document.querySelector(".popup__form");
-  let popupName = form.querySelector(".popup__content_type_name");
-  let popupOccupation = form.querySelector(".popup__content_type_occupation");
-  
-  let popup = document.querySelectorAll('.popup');
+
+  let formDetails = document.forms.persDetails;
+  let popupName = formDetails.querySelector(".popup__content_type_name");
+  let popupOccupation = formDetails.querySelector(".popup__content_type_occupation");
 
   let popupContainer = document.querySelector('.popup__container');
 
-  let popupNamePlace = form.querySelector(".popup__content_type_name-place");
-  let popupLink = form.querySelector('.popup__content_type_link');
+  let formAddPlace = document.forms.addPlace;
+  let popupNamePlace = formAddPlace.querySelector(".popup__content_type_name-place");
+  let popupLink = formAddPlace.querySelector('.popup__content_type_link');
+  
   let popupFullPhoto = document.querySelector('.popup_full-img');
 
-  let closePopup = document.querySelectorAll(".popup__close");
-  
-function popupOpen(popupType){
-  popupType.classList.add('popup_opened');
-  
-  if(popupType.className.includes('name-change')){
-    popupNameContent();
-  }else if(popupType.className.includes('full-img')){
-    popupFullImgContent();
-  }
+  let closePopup = document.querySelector(".popup__close");
+
+  let submitPopup = document.querySelector('.popup__submit');
+
+  const elementTemplate = document.querySelector('#element-template').content.querySelector('.element');
+  const elements = document.querySelector('.elements');
+
+
+function popupOpnAddPlace(){
+  popupAddPlace.classList.add('popup_opened');
+
 }
 
-function popupNameContent(){
+function popupOpnProfileEdit(){
+  popupChangeName.classList.add('popup_opened');
   popupName.value = profileName.textContent;
   popupOccupation.value = profileOccupation.textContent;
 }
 
-function popupFullImgContent(){
-  popupFullPhoto.firstElementChild.classList.add('popup__container_full-img');
+
+function popupOpnFullImg(){
+  popupFullPhoto.classList.add('popup_opened');
+  
+}
+
+let popup = document.querySelectorAll('.popup');
+
+//кнопка удаления попапа
+
+function popupCloseBtn(){
+
+  popup.forEach(elem => {
+    elem.querySelector('.popup__close').addEventListener('click', closePopupButton)
+  });
 
 }
 
-function popupClose(){
-  this.classList.remove('popup_opened');
+function popupCloseSub(){
+  popup.forEach(elem => {
+    elem.querySelector('.popup__submit').addEventListener('click', closePopupButton)
+  });
 }
 
-for(elem of popup){
-  elem.addEventListener('click', popupClose);
+function closePopupButton(e){
+  console.log('jjj');
+  e.target.closest('.popup').classList.remove('popup_opened');
 }
 
-buttonNameChange.addEventListener('click', () => popupOpen(popupChangeName));
-buttonAddPlace.addEventListener('click', () => popupOpen(popupAddPlace));
+
+popupCloseBtn();
+
+//Слушатели клика на кнопки открывающие формы
+
+buttonNameChange.addEventListener('click', popupOpnProfileEdit);
+buttonAddPlace.addEventListener('click', popupOpnAddPlace);
 
 
 const initialCards = [
@@ -78,87 +102,91 @@ const initialCards = [
   }
 ]; 
 
-
-const elementTemplate = document.querySelector('#element-template').content.querySelector('.element');
-const elements = document.querySelector('.elements');
+//функция лайк
 
 function addLike(){
   this.classList.toggle('element__like_active');
 }
 
+//функция удаления карточки
+
 function elementDelete(evt){
 evt.target.closest('.element').remove();
 }
 
+//функция вставки карточки из статичного списка
+
 function templateCard(){
     const cards = initialCards.map(function(item){
-    const card = elementTemplate.cloneNode(true);
-
-    card.querySelector('.element__name').textContent = item.name;
-    card.querySelector('.element__photo').src = item.link;
     
-    card.querySelector('.element__photo').addEventListener('click', () => popupOpen(popupFullPhoto));
-
-    card.querySelector('.element__like').addEventListener('click', addLike);
-    card.querySelector('.element__delete').addEventListener('click', elementDelete);
-
-    return card
+      return createCards(item);
  
-  })
+  });
   elements.append(...cards);
 }
 
+//функция создания карточки и слушателей
+
 templateCard();
 
+function createCards(item){
+  const card = elementTemplate.cloneNode(true);
+  card.querySelector('.element__name').textContent = item.name;
+  card.querySelector('.element__photo').src = item.link;
+  card.querySelector('.element__photo').addEventListener('click', popupOpnFullImg);
+  card.querySelector('.element__like').addEventListener('click', addLike);
+  card.querySelector('.element__delete').addEventListener('click', elementDelete);
 
+  return card
+};
 
-/*
-function makePlace(name, link){
+//функция на сабмит попапа с добавлением новой карточки
 
+function handleFormSubmitPlace(evt) {
 
-  const element = elementTemplate.querySelector('.element').cloneNode(true);
-  element.querySelector('.element__name').textContent = name;
-  element.querySelector('.element__photo').src = link;
-  console.log(elementDelete);
-  return element
-}
+  evt.preventDefault();
 
-for(i = 0; i < initialCards.length; i++){
-  const cardItems = makePlace(initialCards[i].name, initialCards[i].link);
-  elements.prepend(cardItems);
-}
-/*
+  const placeName = this.popupPlaceName.value;
+  const placeLink = this.popupPlaceLink.value;
 
-function addPlace(){
-
-  const newElement = elementTemplate.querySelector('.element').cloneNode(true);
-  newElement.querySelector('.element__photo').src = popupOccupation.value;
-  if(!(popupOccupation.value.includes('http'))){
-    newElement.querySelector('.element__photo').src = 'images/not-photo.jpg';
+  const title = {
+    name: placeName,
+    link: placeLink
   }
-  newElement.querySelector('.element__name').textContent = popupName.value;
-  if(!(newElement.querySelector('.element__name').textContent)){
-    newElement.querySelector('.element__name').textContent = 'Лихолесье';
-  }
-  elements.prepend(newElement); 
-    
+
+    if(!(title.name)){
+      title.name = 'Лихолесье';
+    }
+
+    if(!(title.link.includes('http'))){
+      title.link = 'images/not-photo.jpg';
+    }
+
+  const card = createCards(title);
+
+  elements.prepend(card);
+
+  popupCloseSub()
+
 }
 
-/*
+//функция сабмит для попапа редактирования данных профиля
 
-const elementTemplate = document.querySelector('#element-template').content;
-const elements = document.querySelector('.elements');
+function handleFormSubmitDetails(evt) {
 
-initialCards.forEach(function(item){
+    evt.preventDefault(); 
+    profileName.textContent = popupName.value;
+    profileOccupation.textContent = popupOccupation.value;
+  
+    popupCloseSub()
+}
 
-const element = elementTemplate.querySelector('.element').cloneNode(true);
-element.querySelector('.element__photo').src = item.link;
-element.querySelector('.element__name').textContent = item.name;
-elements.append(element); 
 
-})
+//слушатели на кнопки сабмит попапов с формами
 
-*/
+formAddPlace.addEventListener("submit", handleFormSubmitPlace);
+formDetails.addEventListener("submit", handleFormSubmitDetails);
+
 
 
 
