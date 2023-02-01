@@ -48,26 +48,10 @@ function popupOpnFullImg(e){
 
 }
 
-//функция удаления попапа крестиком
+//функция удаления попапа 
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-}
-
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-});
-
-//функция удаления попапа после сабмита
-
-function popupCloseSub(){
-  forms.forEach(elem => {
-    elem.querySelector('.popup__submit').addEventListener('click', (e) => {
-      e.target.closest('.popup').classList.remove('popup_opened');
-  })
-});  
-
 }
 
 const initialCards = [
@@ -151,7 +135,7 @@ function handleFormSubmitPlace(evt) {
   }
 
     if(!(title.name)){
-      title.name = 'Лихолесье';
+      title.name = 'Изображение не загружено';
     }
 
     if(!(title.link.includes('http'))){
@@ -164,23 +148,16 @@ function handleFormSubmitPlace(evt) {
 
   evt.target.reset();
 
-
-
 }
 
 //функция сабмит для попапа редактирования данных профиля
 
 function handleFormSubmitDetails(evt) {
-
     evt.preventDefault(); 
     profileName.textContent = popupName.value;
     profileOccupation.textContent = popupOccupation.value;
   
-
 }
-
-//вызов функции закрытия попапов
-
 
 
 //слушатели на кнопки сабмит попапов с формами
@@ -192,3 +169,16 @@ formDetails.addEventListener("submit", handleFormSubmitDetails);
 
 buttonNameChange.addEventListener('click', popupOpnProfileEdit);
 buttonAddPlace.addEventListener('click', popupOpnAddPlace);
+
+//слушатели на закрытие попапа
+
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
+});
+
+forms.forEach((form) => {
+  const buttonSubmit = form.querySelector('.popup__submit');
+  const popup = buttonSubmit.closest('.popup');
+  buttonSubmit.addEventListener('click', () => closePopup(popup));
+});
