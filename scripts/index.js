@@ -160,6 +160,9 @@ function handleFormSubmitPlace(evt) {
 
   elements.prepend(card);
 
+  popupNamePlace.value = '';
+  popupLink.value = '';
+
   popupCloseSub()
 
 }
