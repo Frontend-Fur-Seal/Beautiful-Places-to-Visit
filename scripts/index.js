@@ -162,7 +162,6 @@ function handleFormSubmitPlace(evt) {
 
 function handleFormSubmitDetails(evt) {
   evt.preventDefault(); 
-  console.log(evt.target.closest('.popup'));
   profileName.textContent = popupName.value;
   profileOccupation.textContent = popupOccupation.value;
 
