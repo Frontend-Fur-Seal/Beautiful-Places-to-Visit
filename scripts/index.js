@@ -22,26 +22,31 @@
   const popupFigcaption = document.querySelector('.popup__figcaption');
 
 
+// функция открытия попапа
+
+function openPopup(popup){
+  popup.classList.add('popup_opened');
+}
+
 // функция открытия попапа добавление карточки
 
-function popupOpnAddPlace(){
-  popupAddPlace.classList.add('popup_opened');
 
+function openPopupAddPlace(){
+  openPopup(popupAddPlace);
 }
 
 // функция открытия попапа изменение данных профиля
 
-function popupOpnProfileEdit(){
-  popupChangeName.classList.add('popup_opened');
+function openPopupProfileEdit(){
+  openPopup(popupChangeName);
   popupName.value = profileName.textContent;
   popupOccupation.value = profileOccupation.textContent;
 }
 
 // функция открытия попапа с картинкой
 
-function popupOpnFullImg(e){
-  
-  popupFullPhoto.classList.add('popup_opened');
+function openPopupFullImg(e){
+  openPopup(popupFullPhoto);
   popupImage.src = e.target.src;
   popupFigcaption.textContent = e.target.getAttribute('alt');
   popupImage.alt = popupFigcaption.textContent;
@@ -89,7 +94,7 @@ function addLike(){
 
 //функция удаления карточки
 
-function elementDelete(evt){
+function deleteElement(evt){
 evt.target.closest('.element').remove();
 }
 
@@ -113,9 +118,9 @@ function createCards(item){
   card.querySelector('.element__name').textContent = item.name;
   card.querySelector('.element__photo').src = item.link;
   card.querySelector('.element__photo').setAttribute('alt', item.name);
-  card.querySelector('.element__photo').addEventListener('click', popupOpnFullImg);
+  card.querySelector('.element__photo').addEventListener('click', openPopupFullImg);
   card.querySelector('.element__like').addEventListener('click', addLike);
-  card.querySelector('.element__delete').addEventListener('click', elementDelete);
+  card.querySelector('.element__delete').addEventListener('click', deleteElement);
 
   return card
 };
@@ -148,17 +153,22 @@ function handleFormSubmitPlace(evt) {
 
   evt.target.reset();
 
+  const submitPopup = evt.target.closest('.popup');
+  closePopup(submitPopup);
+
 }
 
 //функция сабмит для попапа редактирования данных профиля
 
 function handleFormSubmitDetails(evt) {
-    evt.preventDefault(); 
-    profileName.textContent = popupName.value;
-    profileOccupation.textContent = popupOccupation.value;
-  
-}
+  evt.preventDefault(); 
+  console.log(evt.target.closest('.popup'));
+  profileName.textContent = popupName.value;
+  profileOccupation.textContent = popupOccupation.value;
 
+  const submitPopup = evt.target.closest('.popup');
+  closePopup(submitPopup);
+}
 
 //слушатели на кнопки сабмит попапов с формами
 
@@ -167,18 +177,12 @@ formDetails.addEventListener("submit", handleFormSubmitDetails);
 
 //Слушатели клика на кнопки открывающие формы
 
-buttonNameChange.addEventListener('click', popupOpnProfileEdit);
-buttonAddPlace.addEventListener('click', popupOpnAddPlace);
+buttonNameChange.addEventListener('click', openPopupProfileEdit);
+buttonAddPlace.addEventListener('click', openPopupAddPlace);
 
 //слушатели на закрытие попапа
 
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
-});
-
-forms.forEach((form) => {
-  const buttonSubmit = form.querySelector('.popup__submit');
-  const popup = buttonSubmit.closest('.popup');
-  buttonSubmit.addEventListener('click', () => closePopup(popup));
 });
