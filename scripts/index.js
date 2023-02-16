@@ -26,6 +26,7 @@
 
 function openPopup(popup){
   popup.classList.add('popup_opened');
+  this.addEventListener('keydown', closePopupEsc);
 }
 
 // функция открытия попапа добавление карточки
@@ -57,7 +58,21 @@ function openPopupFullImg(e){
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  this.removeEventListener('keydown', closePopupEsc);
 }
+
+//функция закрытия попапа по кнопке esc
+
+function closePopupEsc(evt){
+  if(evt.keyCode === 27){
+    popups.forEach((elem) => {
+      if(elem.classList.contains('popup_opened')){
+        closePopup(elem);
+      }
+    })
+  } 
+}
+
 
 const initialCards = [
   {
@@ -185,4 +200,15 @@ closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
+
+//слушатели закрытия попапа кликом на оверлей
+
+popups.forEach((elem) => {
+  elem.addEventListener('click', (evt) => {
+    if(elem === evt.target){
+      closePopup(elem);
+    }
+  })
+});
+
 
