@@ -27,6 +27,7 @@
 function openPopup(popup){
   popup.classList.add('popup_opened');
   this.addEventListener('keydown', closePopupEsc);
+  enableValidation();
 }
 
 // функция открытия попапа добавление карточки
