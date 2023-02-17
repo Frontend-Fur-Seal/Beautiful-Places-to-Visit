@@ -12,5 +12,9 @@
 .popup__content:first-of-type{
     margin-bottom: 30px;
 }
+
+.popup__content:invalid{
+    border-bottom: 1px solid rgba(255, 0, 0, 1);
+}
     
     
