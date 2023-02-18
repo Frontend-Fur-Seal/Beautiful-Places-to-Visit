@@ -154,13 +154,6 @@ function handleFormSubmitPlace(evt) {
     link: placeLink
   }
 
-  /*
-    if(!(title.link.includes('http'))){
-      title.link = 'images/not-photo.jpg';
-    }
-
-  */
-
 checkUrl(title.link, errorImage());
 
 function errorImage(){
