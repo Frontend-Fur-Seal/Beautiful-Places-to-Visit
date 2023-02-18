@@ -154,18 +154,6 @@ function handleFormSubmitPlace(evt) {
     link: placeLink
   }
 
-checkUrl(title.link, errorImage());
-
-function errorImage(){
-  title.link = 'images/not-photo.jpg';
-}
-
-function checkUrl(url, onerror) {
-  const script = document.createElement('script');
-  script.onerror = () => onerror(url);
-  script.remove();
-}
-
   const card = createCards(title);
 
   elements.prepend(card);
