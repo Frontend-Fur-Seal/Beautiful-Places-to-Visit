@@ -48,7 +48,6 @@ function checkInputValidity(formElement, inputElement){
   };
 
   
-  
   function hideInputError(formElement, inputElement){
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(config.errorInput);
@@ -62,7 +61,6 @@ function checkInputValidity(formElement, inputElement){
   }); 
   }
 
-    
   function toggleButtonState(inputList, buttonElement){
     if(hasInvalidInput(inputList)){
       buttonElement.setAttribute("disabled", "disabled");
