@@ -34,6 +34,7 @@ function openPopup(popup){
 
 function openPopupAddPlace(){
   openPopup(popupAddPlace);
+  
 }
 
 // функция открытия попапа изменение данных профиля
@@ -64,12 +65,9 @@ function closePopup(popup) {
 //функция закрытия попапа по кнопке esc
 
 function closePopupEsc(evt){
-  if(evt.keyCode === 27){
-    popups.forEach((elem) => {
-      if(elem.classList.contains('popup_opened')){
-        closePopup(elem);
-      }
-    })
+  if(evt.key === 'Escape'){
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
   } 
 }
 
@@ -140,6 +138,13 @@ function createCards(item){
   return card
 };
 
+//проверка введенного url
+
+function isValidUrl(url) {
+  const pattern = /^(https?:\/\/)?[\w.-]+\.[a-zA-Z]{2,}(\/.*)*$/;
+  return pattern.test(url);
+}
+
 //функция на сабмит попапа с добавлением новой карточки
 
 function handleFormSubmitPlace(evt) {
@@ -152,6 +157,10 @@ function handleFormSubmitPlace(evt) {
   const title = {
     name: placeName,
     link: placeLink
+  }
+
+  if(!(isValidUrl(title.link))){
+    title.link = 'images/not-photo.jpg'
   }
 
   const card = createCards(title);
@@ -202,5 +211,3 @@ popups.forEach((elem) => {
     }
   })
 });
-
-

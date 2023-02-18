@@ -7,8 +7,13 @@ const config = {
     errorClass: 'popup__message-error_active'
   }; 
 
+  
+const {formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, errorInput, errorClass} = config;
+  
+enableValidation(config);
+
 function enableValidation(){   
-    const formList = Array.from(document.querySelectorAll(config.formSelector));
+    const formList = Array.from(document.querySelectorAll(formSelector));
     formList.forEach((formElement) => {
       formElement.addEventListener('submit', function (evt) {
         evt.preventDefault();
@@ -18,8 +23,8 @@ function enableValidation(){
   };
 
   function setEventListeners(formElement){
-  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
-  const buttonElement = formElement.querySelector(config.submitButtonSelector);
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+  const buttonElement = formElement.querySelector(submitButtonSelector);
   toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
@@ -42,16 +47,16 @@ function checkInputValidity(formElement, inputElement){
 
   function showInputError(formElement, inputElement, errorMessage){
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add(config.errorInput);
+    inputElement.classList.add(errorInput);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(config.errorClass);
+    errorElement.classList.add(errorClass);
   };
 
   
   function hideInputError(formElement, inputElement){
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(config.errorInput);
-    errorElement.classList.remove(config.errorClass);
+    inputElement.classList.remove(errorInput);
+    errorElement.classList.remove(errorClass);
     errorElement.textContent = '';
   };
 
@@ -64,11 +69,11 @@ function checkInputValidity(formElement, inputElement){
   function toggleButtonState(inputList, buttonElement){
     if(hasInvalidInput(inputList)){
       buttonElement.setAttribute("disabled", "disabled");
-      buttonElement.classList.add(config.inactiveButtonClass);
+      buttonElement.classList.add(inactiveButtonClass);
     }else{
         buttonElement.removeAttribute("disabled");
-      buttonElement.classList.remove(config.inactiveButtonClass);
+      buttonElement.classList.remove(inactiveButtonClass);
     }
   }
   
-  enableValidation();
+  enableValidation(config);
