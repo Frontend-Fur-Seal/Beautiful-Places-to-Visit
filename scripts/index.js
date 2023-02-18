@@ -154,13 +154,24 @@ function handleFormSubmitPlace(evt) {
     link: placeLink
   }
 
-    if(!(title.name)){
-      title.name = 'Изображение не загружено';
-    }
-
+  /*
     if(!(title.link.includes('http'))){
       title.link = 'images/not-photo.jpg';
     }
+
+  */
+
+checkUrl(title.link, errorImage());
+
+function errorImage(){
+  title.link = 'images/not-photo.jpg';
+}
+
+function checkUrl(url, onerror) {
+  const script = document.createElement('script');
+  script.onerror = () => onerror(url);
+  script.remove();
+}
 
   const card = createCards(title);
 
