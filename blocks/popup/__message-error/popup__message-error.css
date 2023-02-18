@@ -1,4 +1,4 @@
-.popup__input-error{
+.popup__message-error{
     display: none;
     color: rgb(255, 0, 0);
     font-size: 12px;
@@ -10,7 +10,7 @@
 }
 
 @media screen and (max-width: 720px) {
-    .popup__input-error{
+    .popup__message-error{
         max-width: 238px;
     }
 }

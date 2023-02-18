@@ -32,11 +32,11 @@
         <form class="popup__form" name="persDetails" novalidate>
           <div class="popup__input-wrap">
             <input required minlength="2" maxlength="40" type="text" class="popup__input popup__content popup__content_type_name" name="popup__content_type_name" id="name-input">
-            <span class="popup__input-error name-input-error"></span>
+            <span class="popup__message-error name-input-error"></span>
           </div>
           <div class="popup__input-wrap">
             <input required minlength="2" maxlength="200" type="text" class="popup__input popup__content popup__content_type_occupation"   name="popup__content_type_occupation" id="occupation-input">
-            <span class="popup__input-error occupation-input-error"></span>
+            <span class="popup__message-error occupation-input-error"></span>
           </div>
           <button type="submit" class="popup__submit">Сохранить</button>
         </form>
@@ -49,11 +49,11 @@
         <form class="popup__form" name="addPlace" novalidate>
           <div class="popup__input-wrap">
             <input required minlength="2" maxlength="30" type="text" class="popup__input popup__content popup__content_type_name-place"     name="popupPlaceName" placeholder="Название" id="name-place-input">
-            <span class="popup__input-error name-place-input-error"></span>
+            <span class="popup__message-error name-place-input-error"></span>
           </div>
           <div class="popup__input-wrap">
             <input required type="url" class="popup__input popup__content popup__content_type_link" name="popupPlaceLink" placeholder="Ссылка на   картинку" id="link-input">
-            <span class="popup__input-error link-input-error"></span>
+            <span class="popup__message-error link-input-error"></span>
           </div>
           <button type="submit" class="popup__submit">Создать</button>
         </form>

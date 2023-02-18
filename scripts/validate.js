@@ -4,7 +4,7 @@ const config = {
     submitButtonSelector: '.popup__submit',
     inactiveButtonClass: 'popup__submit_inactive', 
     errorInput: 'popup__input_error',
-    errorClass: 'popup__input-error_active'
+    errorClass: 'popup__message-error_active'
   }; 
 
 function enableValidation(){   
