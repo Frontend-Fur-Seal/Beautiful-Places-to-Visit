@@ -211,3 +211,12 @@ popups.forEach((elem) => {
     }
   })
 });
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_inactive', 
+  errorInput: 'popup__input_error',
+  errorClass: 'popup__message-error_active'
+})
