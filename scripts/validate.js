@@ -1,7 +1,6 @@
 
 const enableValidation = function(config){   
     const formList = Array.from(document.querySelectorAll(config.formSelector));
-    console.log(formList);
     formList.forEach((formElement) => {
       formElement.addEventListener('submit', function (evt) {
         evt.preventDefault();
@@ -20,6 +19,10 @@ const enableValidation = function(config){
       toggleButtonState(inputList, buttonElement, config);
     });
   });
+  formElement.addEventListener('reset', () => { 
+    setTimeout(() => {  
+      toggleButtonState(inputList, buttonElement, config), 0 })
+  }) 
 };
 
 const checkInputValidity = function(formElement, inputElement, config){

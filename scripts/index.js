@@ -34,7 +34,6 @@ function openPopup(popup){
 
 function openPopupAddPlace(){
   openPopup(popupAddPlace);
-  
 }
 
 // функция открытия попапа изменение данных профиля
