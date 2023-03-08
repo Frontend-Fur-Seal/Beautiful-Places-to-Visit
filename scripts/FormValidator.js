@@ -24,8 +24,8 @@ setEventListeners(formElement){
       });
       if(inputElement.closest('.popup_add-place')){
         document.forms.addPlace.reset();
-        this._hideInputError(formElement, inputElement);
       }
+      this._hideInputError(formElement, inputElement);
     });
   };
 
