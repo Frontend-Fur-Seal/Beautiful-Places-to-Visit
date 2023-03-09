@@ -7,9 +7,23 @@ class Card{
     this._handleCardClick = handleCardClick;
   }
 
+  _addLike(){
+    this._element.querySelector(this._selectors.likeElement).classList.toggle('element__like_active');
+  }
+  _deleteElement(){
+    this._element.remove();
+  }
+
+
   _setEventListeners(){
     this._element.querySelector(this._selectors.photoElement).addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
+    });
+    this._element.querySelector(this._selectors.deleteElement).addEventListener('click', () => {
+      this._deleteElement();
+    });
+    this._element.querySelector(this._selectors.likeElement).addEventListener('click', () => {
+      this._addLike();
     });
   }
 
@@ -23,35 +37,15 @@ class Card{
     return cardElement;
   }
 
-  _addLike(){
-    this.classList.toggle('element__like_active');
-  }
-  _deleteElement(evt){
-    evt.target.closest('.element').remove();
-  }
-/*
-  _openPopupFullImg(evt){
-    openPopup(popupFullPhoto);
-    popupImage.src = evt.target.src;
-    popupFigcaption.textContent = evt.target.getAttribute('alt');
-    popupImage.alt = popupFigcaption.textContent;
-  }
-*/
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
-    const deleteElement = this._element.querySelector(this._selectors.deleteElement);
-    const cardLike = this._element.querySelector(this._selectors.likeElement);
     const photoElement = this._element.querySelector(this._selectors.photoElement);
     const nameElement = this._element.querySelector(this._selectors.nameElement);
 
     nameElement.textContent = this._name;
     photoElement.src = this._link;
     photoElement.alt = this._name;
-
-    cardLike.addEventListener('click', this._addLike);
-    deleteElement.addEventListener('click', this._deleteElement);
-    //photoElement.addEventListener('click', this._openPopupFullImg);
 
     return this._element;
   }
