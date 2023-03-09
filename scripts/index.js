@@ -45,7 +45,7 @@ const initialCards = [
     name: 'Камчатка',
     link: 'images/kamchatka.jpg'
   }
-];
+]
 
 const selectors = {
   nameElement: '.element__name',
@@ -64,13 +64,16 @@ const validateSelectors = {
   errorClass: 'popup__message-error_active'
 }
 
-//добавление карточек на страницу из статичного списка
+//создание карточек из статичного списка
 
-initialCards.forEach((item) => {
+function createCard(item) {
   const card = new Card(item, '#element-template', selectors, handleCardClick);
   const cardElement = card.generateCard();
+  return cardElement
+}
 
-  elements.append(cardElement);
+initialCards.forEach((item) => {
+  elements.append(createCard(item));
 });
 
 function handleCardClick(name, link) {
@@ -82,12 +85,16 @@ function handleCardClick(name, link) {
 
 //создание экземпляра класса
 
-const formValidator = new FormValidator(validateSelectors)
-formValidator._enableValidation();
+const formValidatorPlace = new FormValidator(validateSelectors, '.popup_add-place')
+formValidatorPlace.enableValidation();
+
+const formValidatorName = new FormValidator(validateSelectors, '.popup_name-change')
+formValidatorName.enableValidation();
 
 //функция открытия попапа 
 
  function openPopup(popup){
+  
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 }
@@ -117,10 +124,7 @@ function handleFormSubmitPlace(evt) {
     title.link = 'images/not-photo.jpg'
   }
 
-  const card = new Card(title, '#element-template', selectors);
-  const cardElement = card.generateCard();
-
-  elements.prepend(cardElement);
+  elements.prepend(createCard(title));
 
   evt.target.reset();
 

@@ -1,19 +1,18 @@
 class FormValidator{
-  constructor(config){
+  constructor(config, formName){
     this._config = config;
+    this._formName = formName;
   }
 
-  _enableValidation(){   
-    const formList = Array.from(document.querySelectorAll(this._config.formSelectors));
-    formList.forEach((formElement) => {
-      formElement.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-      });
-    this.setEventListeners(formElement); 
+  enableValidation(){   
+    const formElement = document.querySelector(this._formName).querySelector('.popup__form');
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
     });
+    this._setEventListeners(formElement); 
   };
 
-setEventListeners(formElement){
+_setEventListeners(formElement){
     const inputList = Array.from(formElement.querySelectorAll(this._config.inputSelectors));
     const buttonElement = formElement.querySelector(this._config.submitButtonSelector);
     this._toggleButtonState(inputList, buttonElement);
@@ -22,10 +21,6 @@ setEventListeners(formElement){
         this._checkInputValidity(formElement, inputElement);
         this._toggleButtonState(inputList, buttonElement);
       });
-      if(inputElement.closest('.popup_add-place')){
-        document.forms.addPlace.reset();
-      }
-      this._hideInputError(formElement, inputElement);
     });
   };
 
