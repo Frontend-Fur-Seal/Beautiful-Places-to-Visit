@@ -16,6 +16,10 @@ const elements = document.querySelector('.elements');
 const popups = document.querySelectorAll('.popup');
 
 
+const popupFullPhoto = document.querySelector('.popup_full-img');
+const popupImage = document.querySelector('.popup__image');
+const popupFigcaption = document.querySelector('.popup__figcaption');
+
 const initialCards = [
   {
     name: 'Кольский полуостров',
@@ -41,7 +45,7 @@ const initialCards = [
     name: 'Камчатка',
     link: 'images/kamchatka.jpg'
   }
-]; 
+];
 
 const selectors = {
   nameElement: '.element__name',
@@ -63,20 +67,27 @@ const validateSelectors = {
 //добавление карточек на страницу из статичного списка
 
 initialCards.forEach((item) => {
-  const card = new Card(item, '#element-template', selectors);
+  const card = new Card(item, '#element-template', selectors, handleCardClick);
   const cardElement = card.generateCard();
 
   elements.append(cardElement);
 });
 
+function handleCardClick(name, link) {
+  popupImage.src = link;
+  popupFigcaption.textContent = name;
+  popupImage.alt = popupFigcaption.textContent;
+  openPopup(popupFullPhoto);
+}
+
 //создание экземпляра класса
 
 const formValidator = new FormValidator(validateSelectors)
+formValidator._enableValidation();
 
 //функция открытия попапа 
 
  function openPopup(popup){
-  formValidator._enableValidation();
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 }
@@ -187,5 +198,3 @@ elem.addEventListener('click', (evt) => {
   }
 })
 });
-
-export { openPopup };
