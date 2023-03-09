@@ -137,6 +137,8 @@ function handleFormSubmitPlace(evt) {
 // функция открытия попапа добавление карточки
 
 function openPopupAddPlace(){
+document.forms.addPlace.reset();
+formValidatorPlace.resetValidation();
 openPopup(popupAddPlace);
 
 }
