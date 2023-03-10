@@ -5,10 +5,15 @@ class Card{
     this._selectors = selectors;
     this._templates = templates;
     this._handleCardClick = handleCardClick;
+    this._element = this._getTemplate();
+    this._photoElement = this._element.querySelector(this._selectors.photoElement);
+    this._nameElement = this._element.querySelector(this._selectors.nameElement);
+    this._likeElement = this._element.querySelector(this._selectors.likeElement);
+    this._delElement = this._element.querySelector(this._selectors.deleteElement);
   }
 
   _addLike(){
-    this._element.querySelector(this._selectors.likeElement).classList.toggle('element__like_active');
+    this._likeElement.classList.toggle('element__like_active');
   }
   _deleteElement(){
     this._element.remove();
@@ -16,13 +21,13 @@ class Card{
 
 
   _setEventListeners(){
-    this._element.querySelector(this._selectors.photoElement).addEventListener('click', () => {
+    this._photoElement.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
     });
-    this._element.querySelector(this._selectors.deleteElement).addEventListener('click', () => {
+    this._delElement.addEventListener('click', () => {
       this._deleteElement();
     });
-    this._element.querySelector(this._selectors.likeElement).addEventListener('click', () => {
+    this._likeElement.addEventListener('click', () => {
       this._addLike();
     });
   }
@@ -38,14 +43,11 @@ class Card{
   }
 
   generateCard() {
-    this._element = this._getTemplate();
     this._setEventListeners();
-    const photoElement = this._element.querySelector(this._selectors.photoElement);
-    const nameElement = this._element.querySelector(this._selectors.nameElement);
 
-    nameElement.textContent = this._name;
-    photoElement.src = this._link;
-    photoElement.alt = this._name;
+    this._nameElement.textContent = this._name;
+    this._photoElement.src = this._link;
+    this._photoElement.alt = this._name;
 
     return this._element;
   }
