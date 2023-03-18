@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="pages/index.css">
   <title>Самые красивые места России</title>
 </head>
 <body class="root">
@@ -12,7 +11,7 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="images/avatar.jpg" alt="фотография профиля" class="profile__avatar">
+        <img src="<%=require('./images/avatar.jpg')%>" alt="фотография профиля" class="profile__avatar">
         <div class="profile__info">
           <h1 class="profile__name">Elena Voralberg</h1>
           <button type="button" class="profile__button-name-change"></button>
@@ -79,6 +78,5 @@
         <button type="reset" class="element__delete"></button>
       </article>
     </template>
-    <script src="pages/index.js" type="module"></script>
 </body>
 </html>

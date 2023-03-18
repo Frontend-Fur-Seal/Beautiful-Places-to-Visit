@@ -1,3 +1,5 @@
+import './index.css';
+
   import Card from "../components/Card.js"
   import FormValidator from "../components/FormValidator.js";
   import Section from "../components/Section.js";
@@ -15,30 +17,38 @@
   const elements = document.querySelector('.elements');
   const popupFullPhoto = document.querySelector('.popup_full-img');
 
+  const kolaPeninsula = new URL('../images/kola-peninsula.jpg', import.meta.url);
+  const ladoga = new URL('../images/ladozhskoe-ozero.jpg', import.meta.url);
+  const platoPutorana = new URL('../images/plato-putorana.jpg', import.meta.url);
+  const ruskeala = new URL('../images/ruskeala.jpg', import.meta.url);
+  const solovky = new URL('../images/solovky.jpg', import.meta.url);
+  const kamchatka = new URL('../images/kamchatka.jpg', import.meta.url)
+  const withoutImg = new URL('../images/not-photo.jpg', import.meta.url)
+
   const initialCards = [
     {
       name: 'Кольский полуостров',
-      link: 'images/kola-peninsula.jpg'
+      link: kolaPeninsula
     },
     {
       name: 'Ладожское озеро',
-      link: 'images/ladozhskoe-ozero.jpg'
+      link: ladoga
     },
     {
       name: 'Плато-Путорана',
-      link: 'images/plato-putorana.jpg'
+      link: platoPutorana
     },
     {
       name: 'Рускеала',
-      link: 'images/ruskeala.jpg'
+      link: ruskeala
     },
     {
       name: 'Соловецкие острова',
-      link: 'images/solovky.jpg'
+      link: solovky
     },
     {
       name: 'Камчатка',
-      link: 'images/kamchatka.jpg'
+      link: kamchatka
     }
   ]; 
 
@@ -132,7 +142,7 @@ function handleFormSubmitPlace(evt) {
   }
 
   if(!(isValidUrl(title.link))){
-    title.link = 'images/not-photo.jpg'
+    title.link = withoutImg;
   }
 
   elements.prepend(createNewCard(title));
