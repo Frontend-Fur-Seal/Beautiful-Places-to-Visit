@@ -9,13 +9,13 @@ import './index.css';
 
   const buttonNameChange = document.querySelector(".profile__button-name-change");
   const buttonAddPlace = document.querySelector(".profile__button-add-place");
-  const popupChangeName = document.querySelector('.popup_name-change');
-  const popupAddPlace = document.querySelector('.popup_add-place');
   const formDetails = document.forms.persDetails;
   const popupName = formDetails.querySelector(".popup__content_type_name");
   const popupOccupation = formDetails.querySelector(".popup__content_type_occupation");
   const elements = document.querySelector('.elements');
   const popupFullPhoto = document.querySelector('.popup_full-img');
+  const popupChangeName = document.querySelector('.popup_name-change');
+  const popupAddPlace = document.querySelector('.popup_add-place');
 
   const kolaPeninsula = new URL('../images/kola-peninsula.jpg', import.meta.url);
   const ladoga = new URL('../images/ladozhskoe-ozero.jpg', import.meta.url);
@@ -69,15 +69,20 @@ import './index.css';
     errorClass: 'popup__message-error_active'
   }
 
-  const formValidatorPlace = new FormValidator(validateSelectors, '.popup_add-place');
+  const formValidatorPlace = new FormValidator(validateSelectors, popupAddPlace);
   formValidatorPlace.enableValidation();
-
-  const formValidatorName = new FormValidator(validateSelectors, '.popup_name-change');
+ 
+  const formValidatorName = new FormValidator(validateSelectors, popupChangeName);
   formValidatorName.enableValidation();
 
   const createPopupAddPlace = new PopupWithForm(popupAddPlace, handleFormSubmitPlace, formValidatorPlace);
+  createPopupAddPlace.setEventListeners();
+
   const createPopupProfileEdit = new PopupWithForm(popupChangeName, handleFormSubmitDetails, formValidatorName);
+  createPopupProfileEdit.setEventListeners();
+
   const createPopupFullImg = new PopupWithImage(popupFullPhoto);
+  createPopupFullImg.setEventListeners();
 
   const personalDetails = {
     profileName: '.profile__name',

@@ -2,15 +2,12 @@ class FormValidator{
   constructor(config, formName){
     this._config = config;
     this._formName = formName;
-    this._formElement = document.querySelector(formName).querySelector('.popup__form');
+    this._formElement = formName.querySelector('.popup__form');
     this._buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
     this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelectors));
   }
 
 enableValidation(){   
-    this._formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
   this._setEventListeners(); 
 };
 
