@@ -17,32 +17,12 @@ import './index.css';
     popupFullPhoto,
     popupChangeName,
     popupAddPlace,
-    kolaPeninsula,
-    ladoga,
-    platoPutorana,
-    ruskeala,
-    solovky,
-    kamchatka,
     withoutImg,
-    initialCards
+    initialCards,
+    selectors,
+    validateSelectors
   } from '../utils/constants.js'
 
-  const selectors = {
-    nameElement: '.element__name',
-    photoElement: '.element__photo',
-    likeElement: '.element__like',
-    deleteElement: '.element__delete',
-    element: '.element',
-  }
-
-  const validateSelectors = {
-    formSelectors: '.popup__form',
-    inputSelectors: '.popup__input',
-    submitButtonSelector: '.popup__submit',
-    inactiveButtonClass: 'popup__submit_inactive', 
-    errorInput: 'popup__input_error',
-    errorClass: 'popup__message-error_active'
-  }
 
   const formValidatorPlace = new FormValidator(validateSelectors, popupAddPlace);
   formValidatorPlace.enableValidation();
@@ -127,7 +107,7 @@ function handleFormSubmitPlace(evt) {
     title.link = withoutImg;
   }
 
-  elements.prepend(createNewCard(title));
+  document.querySelector(elements).prepend(createNewCard(title)); // ПОМЕНЯЙ!
 
   evt.target.reset();
 

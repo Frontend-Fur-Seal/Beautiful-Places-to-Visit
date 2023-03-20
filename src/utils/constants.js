@@ -3,7 +3,6 @@
   export const formDetails = document.forms.persDetails;
   export const popupName = formDetails.querySelector(".popup__content_type_name");
   export const popupOccupation = formDetails.querySelector(".popup__content_type_occupation");
-  export const elements = document.querySelector('.elements');
   export const popupFullPhoto = document.querySelector('.popup_full-img');
   export const popupChangeName = document.querySelector('.popup_name-change');
   export const popupAddPlace = document.querySelector('.popup_add-place');
@@ -13,8 +12,10 @@
   export const platoPutorana = new URL('../images/plato-putorana.jpg', import.meta.url);
   export const ruskeala = new URL('../images/ruskeala.jpg', import.meta.url);
   export const solovky = new URL('../images/solovky.jpg', import.meta.url);
-  export const kamchatka = new URL('../images/kamchatka.jpg', import.meta.url)
-  export const withoutImg = new URL('../images/not-photo.jpg', import.meta.url)
+  export const kamchatka = new URL('../images/kamchatka.jpg', import.meta.url);
+  export const withoutImg = new URL('../images/not-photo.jpg', import.meta.url);
+
+  export const elements = '.elements';
 
   export const initialCards = [
     {
@@ -42,3 +43,20 @@
       link: kamchatka
     }
   ]; 
+
+  export const selectors = {
+    nameElement: '.element__name',
+    photoElement: '.element__photo',
+    likeElement: '.element__like',
+    deleteElement: '.element__delete',
+    element: '.element',
+  }
+
+  export const validateSelectors = {
+    formSelectors: '.popup__form',
+    inputSelectors: '.popup__input',
+    submitButtonSelector: '.popup__submit',
+    inactiveButtonClass: 'popup__submit_inactive', 
+    errorInput: 'popup__input_error',
+    errorClass: 'popup__message-error_active'
+  }
