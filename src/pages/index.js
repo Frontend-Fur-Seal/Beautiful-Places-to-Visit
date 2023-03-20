@@ -7,50 +7,25 @@ import './index.css';
   import UserInfo from "../components/UserInfo.js";
   import PopupWithImage from "../components/PopupWithImage.js"
 
-  const buttonNameChange = document.querySelector(".profile__button-name-change");
-  const buttonAddPlace = document.querySelector(".profile__button-add-place");
-  const formDetails = document.forms.persDetails;
-  const popupName = formDetails.querySelector(".popup__content_type_name");
-  const popupOccupation = formDetails.querySelector(".popup__content_type_occupation");
-  const elements = document.querySelector('.elements');
-  const popupFullPhoto = document.querySelector('.popup_full-img');
-  const popupChangeName = document.querySelector('.popup_name-change');
-  const popupAddPlace = document.querySelector('.popup_add-place');
-
-  const kolaPeninsula = new URL('../images/kola-peninsula.jpg', import.meta.url);
-  const ladoga = new URL('../images/ladozhskoe-ozero.jpg', import.meta.url);
-  const platoPutorana = new URL('../images/plato-putorana.jpg', import.meta.url);
-  const ruskeala = new URL('../images/ruskeala.jpg', import.meta.url);
-  const solovky = new URL('../images/solovky.jpg', import.meta.url);
-  const kamchatka = new URL('../images/kamchatka.jpg', import.meta.url)
-  const withoutImg = new URL('../images/not-photo.jpg', import.meta.url)
-
-  const initialCards = [
-    {
-      name: 'Кольский полуостров',
-      link: kolaPeninsula
-    },
-    {
-      name: 'Ладожское озеро',
-      link: ladoga
-    },
-    {
-      name: 'Плато-Путорана',
-      link: platoPutorana
-    },
-    {
-      name: 'Рускеала',
-      link: ruskeala
-    },
-    {
-      name: 'Соловецкие острова',
-      link: solovky
-    },
-    {
-      name: 'Камчатка',
-      link: kamchatka
-    }
-  ]; 
+  import {
+    buttonNameChange,
+    buttonAddPlace,
+    formDetails,
+    popupName,
+    popupOccupation,
+    elements,
+    popupFullPhoto,
+    popupChangeName,
+    popupAddPlace,
+    kolaPeninsula,
+    ladoga,
+    platoPutorana,
+    ruskeala,
+    solovky,
+    kamchatka,
+    withoutImg,
+    initialCards
+  } from '../utils/constants.js'
 
   const selectors = {
     nameElement: '.element__name',
@@ -75,10 +50,10 @@ import './index.css';
   const formValidatorName = new FormValidator(validateSelectors, popupChangeName);
   formValidatorName.enableValidation();
 
-  const createPopupAddPlace = new PopupWithForm(popupAddPlace, handleFormSubmitPlace, formValidatorPlace);
+  const createPopupAddPlace = new PopupWithForm(popupAddPlace, handleFormSubmitPlace);
   createPopupAddPlace.setEventListeners();
 
-  const createPopupProfileEdit = new PopupWithForm(popupChangeName, handleFormSubmitDetails, formValidatorName);
+  const createPopupProfileEdit = new PopupWithForm(popupChangeName, handleFormSubmitDetails);
   createPopupProfileEdit.setEventListeners();
 
   const createPopupFullImg = new PopupWithImage(popupFullPhoto);
@@ -114,6 +89,7 @@ createCardStaticList.renderItems();
 
 function openPopupAddPlace(){
   createPopupAddPlace.openPopup();
+  formValidatorPlace.resetOpnForm();
 }
 
 const userDetails = new UserInfo(personalDetails);
@@ -124,6 +100,7 @@ function openPopupProfileEdit (){
   popupOccupation.value = userDetails.getUserInfo().profileOccupation;
 
   createPopupProfileEdit.openPopup();
+  formValidatorName.resetOpnForm();
 }
 
 function handleFormSubmitDetails(evt) {
