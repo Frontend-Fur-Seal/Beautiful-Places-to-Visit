@@ -29,16 +29,20 @@ resetOpnForm(){
   });
 }
 
+
+isValidUrl(url) {
+    const pattern = /^(https?:\/\/)?[\w.-]+\.[a-zA-Z]{2,}(\/.*)*$/;
+    return pattern.test(url);
+}
+
 _checkInputValidity(inputElement){
   if (!inputElement.validity.valid) {
-      if(!inputElement){
-          inputElement.validationMessage = inputElement.setCustomValidity("Вы пропустили это поле");
-      }
       this._showInputError(inputElement, inputElement.validationMessage);
   } else {
       this._hideInputError(inputElement);
-  }
+    } 
 };
+
 _showInputError = function(inputElement, errorMessage){
   const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(this._config.errorInput);

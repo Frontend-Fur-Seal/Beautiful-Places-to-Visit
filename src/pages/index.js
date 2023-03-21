@@ -38,6 +38,10 @@ import './index.css';
         link: formData['popupPlaceLink'] 
       } 
       
+      if(!(formValidatorPlace.isValidUrl(title.link))){ 
+        title.link = withoutImg; 
+      } 
+
       document.querySelector(elements).prepend(createNewCard(title)); 
   
       createPopupAddPlace.closePopup();   
@@ -97,12 +101,7 @@ function openPopupProfileEdit (){
   createPopupProfileEdit.openPopup();
   formValidatorName.resetOpnForm();
 }
-/*
-function isValidUrl(url) {
-  const pattern = /^(https?:\/\/)?[\w.-]+\.[a-zA-Z]{2,}(\/.*)*$/;
-  return pattern.test(url);
-}
-*/
+
 buttonNameChange.addEventListener('click', openPopupProfileEdit);
 buttonAddPlace.addEventListener('click', openPopupAddPlace);
 

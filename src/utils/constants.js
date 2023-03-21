@@ -61,7 +61,7 @@
     errorClass: 'popup__message-error_active'
   }
 
-  export const persDetails = {
+  export const personalDetails = {
     profileName: document.querySelector('.profile__name'),
     profileOccupation: document.querySelector('.profile__occupation')
   }
