@@ -1,39 +1,40 @@
 import './index.css';
 
-  import Card from "../components/Card.js"
-  import FormValidator from "../components/FormValidator.js";
-  import Section from "../components/Section.js";
-  import PopupWithForm from "../components/PopupWithForm.js"
-  import UserInfo from "../components/UserInfo.js";
-  import PopupWithImage from "../components/PopupWithImage.js"
+import Card from "../components/Card.js"
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js"
+import UserInfo from "../components/UserInfo.js";
+import PopupWithImage from "../components/PopupWithImage.js"
+import {
+  buttonNameChange,
+  buttonAddPlace,
+  popupName,
+  popupOccupation,
+  elements,
+  popupFullPhoto,
+  popupChangeName,
+  popupAddPlace,
+  withoutImg,
+  initialCards,
+  selectors,
+  validateSelectors,
+  personalDetails
+} from '../utils/constants.js'
 
-  import {
-    buttonNameChange,
-    buttonAddPlace,
-    popupName,
-    popupOccupation,
-    elements,
-    popupFullPhoto,
-    popupChangeName,
-    popupAddPlace,
-    withoutImg,
-    initialCards,
-    selectors,
-    validateSelectors,
-    personalDetails
 
-  } from '../utils/constants.js'
+export const formValidatorPlace = new FormValidator(validateSelectors, popupAddPlace);
+export const formValidatorName = new FormValidator(validateSelectors, popupChangeName);
 
-  export const formValidatorPlace = new FormValidator(validateSelectors, popupAddPlace);
-  export const formValidatorName = new FormValidator(validateSelectors, popupChangeName);
+formValidatorPlace.enableValidation();
+formValidatorName.enableValidation();
 
-  formValidatorPlace.enableValidation();
-  formValidatorName.enableValidation();
 
-  const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
-    {handleFormSubmit: (formData) => {
-     
-      const title = { 
+const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
+
+  {handleFormSubmit: (formData) => {
+
+    const title = { 
         name: formData['popupPlaceName'], 
         link: formData['popupPlaceLink'] 
       } 
@@ -47,23 +48,22 @@ import './index.css';
       createPopupAddPlace.closePopup();   
     }});
 
-  createPopupAddPlace.setEventListeners();
+createPopupAddPlace.setEventListeners();
 
-  const userDetails = new UserInfo(personalDetails);
+const userDetails = new UserInfo(personalDetails);
 
-  const createPopupProfileEdit = new PopupWithForm(popupChangeName, 
-    {handleFormSubmit: (formData) => {
-      userDetails.setUserInfo(formData['popup__content_type_name'], formData['popup__content_type_occupation']);
-      createPopupProfileEdit.closePopup();
-    }
-  });
+const createPopupProfileEdit = new PopupWithForm(popupChangeName, 
+  {handleFormSubmit: (formData) => {
+    userDetails.setUserInfo(formData['popup__content_type_name'], formData['popup__content_type_occupation']);
+    createPopupProfileEdit.closePopup();
+  }
+});
 
-  createPopupProfileEdit.setEventListeners();
+createPopupProfileEdit.setEventListeners();
 
-  const createPopupFullImg = new PopupWithImage(popupFullPhoto);
-  createPopupFullImg.setEventListeners();
-
-
+const createPopupFullImg = new PopupWithImage(popupFullPhoto);
+createPopupFullImg.setEventListeners();
+ 
 function createNewCard(item){
   const card = new Card(
     item, 
