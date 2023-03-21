@@ -44,7 +44,7 @@
     }
   ]; 
 
-  export const selectors = {
+  export const createNewCardObject = {
     nameElement: '.element__name',
     photoElement: '.element__photo',
     likeElement: '.element__like',
@@ -52,7 +52,7 @@
     element: '.element',
   }
 
-  export const validateSelectors = {
+  export const formValidatorPlaceObject = {
     formSelectors: '.popup__form',
     inputSelectors: '.popup__input',
     submitButtonSelector: '.popup__submit',

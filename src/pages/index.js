@@ -17,14 +17,14 @@ import {
   popupAddPlace,
   withoutImg,
   initialCards,
-  selectors,
-  validateSelectors,
+  createNewCardObject,
+  formValidatorPlaceObject,
   personalDetails
 } from '../utils/constants.js'
 
 
-export const formValidatorPlace = new FormValidator(validateSelectors, popupAddPlace);
-export const formValidatorName = new FormValidator(validateSelectors, popupChangeName);
+export const formValidatorPlace = new FormValidator(formValidatorPlaceObject, popupAddPlace);
+export const formValidatorName = new FormValidator(formValidatorPlaceObject, popupChangeName);
 
 formValidatorPlace.enableValidation();
 formValidatorName.enableValidation();
@@ -63,12 +63,13 @@ createPopupProfileEdit.setEventListeners();
 
 const createPopupFullImg = new PopupWithImage(popupFullPhoto);
 createPopupFullImg.setEventListeners();
- 
+
+  
 function createNewCard(item){
   const card = new Card(
     item, 
     '#element-template', 
-    selectors, 
+    createNewCardObject, 
     {handleCardClick: (name, link) => {
       createPopupFullImg.openPopup(name, link);
     }});
