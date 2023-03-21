@@ -60,3 +60,9 @@
     errorInput: 'popup__input_error',
     errorClass: 'popup__message-error_active'
   }
+
+  export const persDetails = {
+    profileName: document.querySelector('.profile__name'),
+    profileOccupation: document.querySelector('.profile__occupation')
+  }
+  
