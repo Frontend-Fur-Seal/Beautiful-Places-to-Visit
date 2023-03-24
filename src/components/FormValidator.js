@@ -2,9 +2,8 @@ class FormValidator{
   constructor(config, formName){
     this._config = config;
     this._formName = formName;
-    this._formElement = formName.querySelector('.popup__form');
-    this._buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
-    this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelectors));
+    this._buttonElement = this._formName.querySelector(this._config.submitButtonSelector);
+    this._inputList = Array.from(this._formName.querySelectorAll(this._config.inputSelectors));
   }
 
 enableValidation(){   
@@ -29,12 +28,6 @@ resetOpnForm(){
   });
 }
 
-
-isValidUrl(url) {
-    const pattern = /^(https?:\/\/)?[\w.-]+\.[a-zA-Z]{2,}(\/.*)*$/;
-    return pattern.test(url);
-}
-
 _checkInputValidity(inputElement){
   if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
@@ -44,14 +37,14 @@ _checkInputValidity(inputElement){
 };
 
 _showInputError = function(inputElement, errorMessage){
-  const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = this._formName.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(this._config.errorInput);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(this._config.errorClass);
 };
 
 _hideInputError(inputElement){
-  const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = this._formName.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(this._config.errorInput);
   errorElement.classList.remove(this._config.errorClass);
   errorElement.textContent = '';

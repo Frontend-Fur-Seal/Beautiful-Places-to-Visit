@@ -1,8 +1,9 @@
   export const buttonNameChange = document.querySelector(".profile__button-name-change");
   export const buttonAddPlace = document.querySelector(".profile__button-add-place");
-  export const formDetails = document.forms.persDetails;
-  export const popupName = formDetails.querySelector(".popup__content_type_name");
-  export const popupOccupation = formDetails.querySelector(".popup__content_type_occupation");
+  export const userInfoForm = document.forms.persDetails;
+  export const addPlaceForm = document.forms.addPlace;
+  export const popupName = userInfoForm.querySelector(".popup__content_type_name");
+  export const popupOccupation = userInfoForm.querySelector(".popup__content_type_occupation");
   export const popupFullPhoto = document.querySelector('.popup_full-img');
   export const popupChangeName = document.querySelector('.popup_name-change');
   export const popupAddPlace = document.querySelector('.popup_add-place');
