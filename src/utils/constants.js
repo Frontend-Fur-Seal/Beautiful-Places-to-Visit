@@ -14,7 +14,6 @@
   export const ruskeala = new URL('../images/ruskeala.jpg', import.meta.url);
   export const solovky = new URL('../images/solovky.jpg', import.meta.url);
   export const kamchatka = new URL('../images/kamchatka.jpg', import.meta.url);
-  export const withoutImg = new URL('../images/not-photo.jpg', import.meta.url);
 
   export const elements = '.elements';
 
