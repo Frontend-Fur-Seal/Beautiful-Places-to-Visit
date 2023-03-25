@@ -30,26 +30,26 @@ export const formValidatorName = new FormValidator(formValidatorPlaceObject, use
 formValidatorPlace.enableValidation();
 formValidatorName.enableValidation();
 
+const createCardStaticList = new Section({
+  items: initialCards,
+  renderer: (elem) => {
+    createNewCard(elem);
+    createCardStaticList.addItem(createNewCard(elem));
+  }
+}, elements);
+
 
 const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
 
   {handleFormSubmit: (formData) => {
 
-    const title = [{ 
+    const title = { 
         name: formData['popupPlaceName'], 
         link: formData['popupPlaceLink'] 
-      }] 
-      
-      const createCardDynamicList = new Section({
-        items: title,
-        renderer: (elem) => {
-          createNewCard(elem);
-          createCardStaticList.addItem(createNewCard(elem));
-        }
-      }, elements);
+      } 
 
-      createCardDynamicList.renderItems();  
-  
+      createCardStaticList.addItem(createNewCard(title));
+
       createPopupAddPlace.closePopup();   
     }});
 
@@ -81,14 +81,6 @@ function createNewCard(item){
   const cardElement = card.generateCard();
   return cardElement
 }
-
-const createCardStaticList = new Section({
-  items: initialCards,
-  renderer: (elem) => {
-    createNewCard(elem);
-    createCardStaticList.addItem(createNewCard(elem));
-  }
-}, elements);
 
 createCardStaticList.renderItems();
 
