@@ -17,11 +17,16 @@ import {
   popupFullPhoto,
   popupChangeName,
   popupAddPlace,
+  profileAvatar,
+  popupDeleteCard,
   initialCards,
   createNewCardObject,
   formValidatorPlaceObject,
-  personalDetails
+  personalDetails,
+  changeAvatarButton,
+  buttonChangeAvatar
 } from '../utils/constants.js'
+import Popup from '../components/Popup';
 
 
 export const formValidatorPlace = new FormValidator(formValidatorPlaceObject, addPlaceForm);
@@ -38,6 +43,8 @@ const createCardStaticList = new Section({
   }
 }, elements);
 
+const createPopupDeleteCard = new Popup(popupDeleteCard);
+createPopupDeleteCard.setEventListeners();
 
 const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
 
@@ -90,7 +97,6 @@ function openPopupAddPlace(){
   formValidatorPlace.resetOpnForm();
 }
 
-
 function openPopupProfileEdit (){
 
   popupName.value = userDetails.getUserInfo().name;
@@ -100,6 +106,26 @@ function openPopupProfileEdit (){
   formValidatorName.resetOpnForm();
 }
 
+function openPopupAgreeDelCard(){
+  createPopupDeleteCard.openPopup();
+}
+
+const test = document.querySelector(createNewCardObject.deleteElement);
+const testbuttonchangeavatar = document.querySelector('.profile__avatar-container');
+
+
+function avatarHover(evt){
+ if (evt.type == 'mouseenter'){
+  evt.target.style.zIndex = '5;'
+ }if (evt.type == 'mouseleave'){
+  
+ }
+}
+
+
+test.addEventListener('click', openPopupAgreeDelCard);
 buttonNameChange.addEventListener('click', openPopupProfileEdit);
 buttonAddPlace.addEventListener('click', openPopupAddPlace);
+changeAvatarButton.addEventListener('mouseenter', avatarHover);
+changeAvatarButton.addEventListener('mouseleave', avatarHover);
 

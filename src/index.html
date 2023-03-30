@@ -11,7 +11,10 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="<%=require('./images/avatar.jpg')%>" alt="фотография профиля" class="profile__avatar">
+          <div class="profile__avatar-container">
+          <img src="<%=require('./images/change-avatar.svg')%>" alt="изменить аватар" class="profile__avatar_type_hover"> 
+          <img src="<%=require('./images/avatar.jpg')%>" alt="фотография профиля" class="profile__avatar">
+          </div>
         <div class="profile__info">
           <h1 class="profile__name">Elena Voralberg</h1>
           <button type="button" class="profile__button-name-change"></button>
@@ -65,6 +68,13 @@
           <img class="popup__image" src="#" alt="">
           <figcaption class="popup__figcaption"></figcaption>
         </figure>
+        <button class="popup__close" type="reset"></button>
+      </div>
+    </section>
+    <section class="popup popup_delete-agree">
+      <div class="popup__container popup__container_delete-agree">
+        <h2 class="popup__title">Вы уверены?</h2>
+          <button type="submit" class="popup__submit">Да</button>
         <button class="popup__close" type="reset"></button>
       </div>
     </section>
