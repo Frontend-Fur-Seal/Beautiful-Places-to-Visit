@@ -5,7 +5,8 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js"
 import UserInfo from "../components/UserInfo.js";
-import PopupWithImage from "../components/PopupWithImage.js"
+import PopupWithImage from "../components/PopupWithImage.js";
+import Api from "../components/Api.js"
 import {
   buttonNameChange,
   buttonAddPlace,
@@ -17,20 +18,17 @@ import {
   popupFullPhoto,
   popupChangeName,
   popupAddPlace,
-  profileAvatar,
-  popupDeleteCard,
   initialCards,
   createNewCardObject,
   formValidatorPlaceObject,
   personalDetails,
-  changeAvatarButton,
-  buttonChangeAvatar
 } from '../utils/constants.js'
 import Popup from '../components/Popup';
 
 
 export const formValidatorPlace = new FormValidator(formValidatorPlaceObject, addPlaceForm);
 export const formValidatorName = new FormValidator(formValidatorPlaceObject, userInfoForm);
+
 
 formValidatorPlace.enableValidation();
 formValidatorName.enableValidation();
@@ -43,8 +41,8 @@ const createCardStaticList = new Section({
   }
 }, elements);
 
-const createPopupDeleteCard = new Popup(popupDeleteCard);
-createPopupDeleteCard.setEventListeners();
+// const createPopupDeleteCard = new Popup(popupDeleteCard); - перенести в класс аватара
+//createPopupDeleteCard.setEventListeners();
 
 const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
 
@@ -70,7 +68,16 @@ const createPopupProfileEdit = new PopupWithForm(popupChangeName,
     createPopupProfileEdit.closePopup();
   }
 });
+/*
+const createPopupAvatarEdit = new PopupWithForm(popupAvatarChange, 
+  {handleFormSubmit: (formData) => {
 
+    createPopupProfileEdit.closePopup();
+  }
+});
+
+createPopupAvatarEdit.setEventListeners(); ПОПРАВИТЬ
+*/
 createPopupProfileEdit.setEventListeners();
 
 const createPopupFullImg = new PopupWithImage(popupFullPhoto);
@@ -97,6 +104,15 @@ function openPopupAddPlace(){
   formValidatorPlace.resetOpnForm();
 }
 
+/*
+function openPopupAvatarChange(){
+
+  createPopupAvatarEdit.openPopup();
+} // добавить в инпут подгрузку src с сервера
+
+avatarContainer.addEventListener('click', openPopupAvatarChange)//оставить
+*/
+
 function openPopupProfileEdit (){
 
   popupName.value = userDetails.getUserInfo().name;
@@ -106,6 +122,11 @@ function openPopupProfileEdit (){
   formValidatorName.resetOpnForm();
 }
 
+buttonNameChange.addEventListener('click', openPopupProfileEdit);
+buttonAddPlace.addEventListener('click', openPopupAddPlace);
+
+
+/*
 function openPopupAgreeDelCard(){
   createPopupDeleteCard.openPopup();
 }
@@ -116,16 +137,42 @@ const testbuttonchangeavatar = document.querySelector('.profile__avatar-containe
 
 function avatarHover(evt){
  if (evt.type == 'mouseenter'){
-  evt.target.style.zIndex = '5;'
+  changeAvatarButton.style.zIndex = '10';
+  profileAvatar.style.opacity = '.8';
  }if (evt.type == 'mouseleave'){
-  
+  changeAvatarButton.style.zIndex = '1';
+  profileAvatar.style.opacity = '1';
  }
 }
 
 
 test.addEventListener('click', openPopupAgreeDelCard);
-buttonNameChange.addEventListener('click', openPopupProfileEdit);
-buttonAddPlace.addEventListener('click', openPopupAddPlace);
-changeAvatarButton.addEventListener('mouseenter', avatarHover);
-changeAvatarButton.addEventListener('mouseleave', avatarHover);
 
+testbuttonchangeavatar.addEventListener('mouseenter', avatarHover);
+testbuttonchangeavatar.addEventListener('mouseleave', avatarHover);
+
+/*
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-63',
+  headers: {
+    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
+    'Content-Type': 'application/json'
+  }
+});  
+
+*/
+/*
+  fetch('https://mesto.nomoreparties.co/v1/cohort-63/cards', {
+  method: 'GET',
+  headers: {
+    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
+    'Content-Type': 'application/json'
+  }
+})
+.then(res => res.json())
+.then((result) => {
+  result.forEach((element) => {
+    createCardStaticList.addItem(createNewCard(element));
+  })
+})
+*/

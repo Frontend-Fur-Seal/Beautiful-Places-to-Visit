@@ -1,5 +1,5 @@
 class Api{
-    constructor(){
+    constructor({url, token}){
         
     }
 }
