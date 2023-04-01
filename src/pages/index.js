@@ -21,7 +21,12 @@ import {
   initialCards,
   createNewCardObject,
   formValidatorPlaceObject,
+  changeAvatarButton,
+  profileAvatar,
   personalDetails,
+  popupAvatarChange,
+  popupAvatar,
+  avatarContainer
 } from '../utils/constants.js'
 import Popup from '../components/Popup';
 
@@ -62,22 +67,40 @@ createPopupAddPlace.setEventListeners();
 
 const userDetails = new UserInfo(personalDetails);
 
+fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
+  method: 'GET',
+  headers: {
+    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
+    'Content-Type': 'application/json'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+  personalDetails.profileName.textContent = result.name;
+  personalDetails.profileOccupation.textContent =  result.about;
+  personalDetails.avatar.src = result.avatar;
+
+  })
+
+
 const createPopupProfileEdit = new PopupWithForm(popupChangeName, 
   {handleFormSubmit: (formData) => {
+  fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
+  method: 'PATCH',
+  headers: {
+    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: formData['popup__content_type_name'],
+    about: formData['popup__content_type_occupation']
+  })
+}); 
     userDetails.setUserInfo(formData['popup__content_type_name'], formData['popup__content_type_occupation']);
     createPopupProfileEdit.closePopup();
   }
 });
-/*
-const createPopupAvatarEdit = new PopupWithForm(popupAvatarChange, 
-  {handleFormSubmit: (formData) => {
 
-    createPopupProfileEdit.closePopup();
-  }
-});
-
-createPopupAvatarEdit.setEventListeners(); ПОПРАВИТЬ
-*/
 createPopupProfileEdit.setEventListeners();
 
 const createPopupFullImg = new PopupWithImage(popupFullPhoto);
@@ -104,19 +127,21 @@ function openPopupAddPlace(){
   formValidatorPlace.resetOpnForm();
 }
 
-/*
-function openPopupAvatarChange(){
-
-  createPopupAvatarEdit.openPopup();
-} // добавить в инпут подгрузку src с сервера
-
-avatarContainer.addEventListener('click', openPopupAvatarChange)//оставить
-*/
 
 function openPopupProfileEdit (){
 
-  popupName.value = userDetails.getUserInfo().name;
-  popupOccupation.value = userDetails.getUserInfo().occupation;
+  fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
+  method: 'GET',
+  headers: {
+    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
+    'Content-Type': 'application/json'
+  }
+})
+.then(res => res.json())
+.then((result) => {
+  popupName.value = result.name;
+  popupOccupation.value = result.about;
+  })
 
   createPopupProfileEdit.openPopup();
   formValidatorName.resetOpnForm();
@@ -132,6 +157,49 @@ function openPopupAgreeDelCard(){
 }
 
 const test = document.querySelector(createNewCardObject.deleteElement);
+test.addEventListener('click', openPopupAgreeDelCard);
+
+*/
+
+function openPopupAvatarChange(){
+
+  fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
+    method: 'GET',
+    headers: {
+      authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then((result) => {
+    popupAvatar.value = result.avatar;
+    })
+
+  createPopupAvatarEdit.openPopup();
+} 
+
+avatarContainer.addEventListener('click', openPopupAvatarChange)//оставить
+
+
+const createPopupAvatarEdit = new PopupWithForm(popupAvatarChange, 
+  {handleFormSubmit: (formData) => {
+  fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
+  method: 'PATCH',
+  headers: {
+    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    avatar: formData['popup__content_type_avatar-link']
+  })
+}); 
+    personalDetails.avatar.src = formData['popup__content_type_avatar-link'];
+    createPopupProfileEdit.closePopup();
+  }
+});
+
+createPopupAvatarEdit.setEventListeners(); 
+
 const testbuttonchangeavatar = document.querySelector('.profile__avatar-container');
 
 
@@ -145,8 +213,6 @@ function avatarHover(evt){
  }
 }
 
-
-test.addEventListener('click', openPopupAgreeDelCard);
 
 testbuttonchangeavatar.addEventListener('mouseenter', avatarHover);
 testbuttonchangeavatar.addEventListener('mouseleave', avatarHover);

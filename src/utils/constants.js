@@ -2,7 +2,9 @@
   export const buttonAddPlace = document.querySelector(".profile__button-add-place");
   export const userInfoForm = document.forms.persDetails;
   export const addPlaceForm = document.forms.addPlace;
+  export const changeAvatar = document.forms.avatarChange;
   export const popupName = userInfoForm.querySelector(".popup__content_type_name");
+  export const popupAvatar = changeAvatar.querySelector(".popup__content_type_avatar-link");
   export const popupOccupation = userInfoForm.querySelector(".popup__content_type_occupation");
   export const popupFullPhoto = document.querySelector('.popup_full-img');
   export const popupChangeName = document.querySelector('.popup_name-change');
@@ -70,6 +72,7 @@
 
   export const personalDetails = {
     profileName: document.querySelector('.profile__name'),
-    profileOccupation: document.querySelector('.profile__occupation')
+    profileOccupation: document.querySelector('.profile__occupation'),
+    avatar: document.querySelector('.profile__avatar')
   }
   

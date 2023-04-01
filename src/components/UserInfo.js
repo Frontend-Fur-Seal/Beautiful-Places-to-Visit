@@ -1,5 +1,5 @@
 class UserInfo{ 
-    constructor(personalDetails){ 
+    constructor(personalDetails){ //передать сюда данные с сервера
     this._profileName = personalDetails.profileName; 
     this._profileOccupation = personalDetails.profileOccupation; 
     } 
