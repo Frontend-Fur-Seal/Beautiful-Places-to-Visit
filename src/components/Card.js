@@ -1,5 +1,5 @@
 class Card{
-  constructor(data, templates, selectors, {handleCardClick}){
+  constructor(data, templates, selectors, {handleCardClick}){//получаем в конструктор данные owner с сервера
     this._name = data.name;
     this._link = data.link;
     this._selectors = selectors;
@@ -48,7 +48,7 @@ class Card{
     this._nameElement.textContent = this._name;
     this._photoElement.src = this._link;
     this._photoElement.alt = this._name;
-
+// при генерации карточки сравнивать id owner со своим id и если отличается - скрывать кнопку удаления
     return this._element;
   }
 

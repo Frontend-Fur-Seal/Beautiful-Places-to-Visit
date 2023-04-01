@@ -1,6 +1,7 @@
 .popup__input-wrap{
     display: flex;
     flex-direction: column;
+    
 }
 
 .popup__input-wrap:first-of-type{

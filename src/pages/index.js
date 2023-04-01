@@ -67,22 +67,6 @@ createPopupAddPlace.setEventListeners();
 
 const userDetails = new UserInfo(personalDetails);
 
-fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
-  method: 'GET',
-  headers: {
-    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
-    'Content-Type': 'application/json'
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-  personalDetails.profileName.textContent = result.name;
-  personalDetails.profileOccupation.textContent =  result.about;
-  personalDetails.avatar.src = result.avatar;
-
-  })
-
-
 const createPopupProfileEdit = new PopupWithForm(popupChangeName, 
   {handleFormSubmit: (formData) => {
   fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
@@ -228,6 +212,14 @@ const api = new Api({
 
 */
 /*
+function comparisonId(userId){
+  if(userId === '8a273213ce87337e742d70d2'){
+    console.log('eto ya')
+  }else{
+    console.log('eto ne ya')
+  }
+}
+
   fetch('https://mesto.nomoreparties.co/v1/cohort-63/cards', {
   method: 'GET',
   headers: {
@@ -238,7 +230,31 @@ const api = new Api({
 .then(res => res.json())
 .then((result) => {
   result.forEach((element) => {
-    createCardStaticList.addItem(createNewCard(element));
+    //console.log(element.owner._id)//писать сюда функцию, которая принимает id owner и сравнивает со своим id
+    comparisonId(element.owner._id)
   })
+  })
+
+  fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
+  method: 'GET',
+  headers: {
+    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
+    'Content-Type': 'application/json'
+  }
 })
-*/
+.then(res => res.json())
+.then((result) => {
+  console.log(result)
+  })
+
+  */
+
+  const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-63',
+    headers: {
+      authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
+      'Content-Type': 'application/json'
+    }
+  }); 
+
+  api.initialUser(personalDetails);
