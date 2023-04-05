@@ -30,6 +30,21 @@ import {
 } from '../utils/constants.js'
 import Popup from '../components/Popup';
 
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-63',
+  headers: {
+    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
+    'Content-Type': 'application/json'
+  }
+}); 
+
+api.getInitialUser()
+.then((result) => {
+  personalDetails.profileName.textContent = result.name;
+  personalDetails.profileOccupation.textContent =  result.about;
+  personalDetails.avatar.src = result.avatar;
+})
+
 
 export const formValidatorPlace = new FormValidator(formValidatorPlaceObject, addPlaceForm);
 export const formValidatorName = new FormValidator(formValidatorPlaceObject, userInfoForm);
@@ -38,13 +53,20 @@ export const formValidatorName = new FormValidator(formValidatorPlaceObject, use
 formValidatorPlace.enableValidation();
 formValidatorName.enableValidation();
 
-const createCardStaticList = new Section({
-  items: initialCards,
-  renderer: (elem) => {
-    createNewCard(elem);
-    createCardStaticList.addItem(createNewCard(elem));
-  }
-}, elements);
+api.getInitialCards()
+.then((result) => {
+  const createCardStaticList = new Section({
+    items: result,
+    renderer: (elem) => {
+      createNewCard(elem);
+      createCardStaticList.addItem(createNewCard(elem));
+    }
+  }, elements);
+
+  createCardStaticList.renderItems();
+})
+
+
 
 // const createPopupDeleteCard = new Popup(popupDeleteCard); - перенести в класс аватара
 //createPopupDeleteCard.setEventListeners();
@@ -58,7 +80,7 @@ const createPopupAddPlace = new PopupWithForm(popupAddPlace,
         link: formData['popupPlaceLink'] 
       } 
 
-      createCardStaticList.addItem(createNewCard(title));
+      //createCardStaticList.addItem(createNewCard(title));
 
       createPopupAddPlace.closePopup();   
     }});
@@ -69,17 +91,8 @@ const userDetails = new UserInfo(personalDetails);
 
 const createPopupProfileEdit = new PopupWithForm(popupChangeName, 
   {handleFormSubmit: (formData) => {
-  fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
-  method: 'PATCH',
-  headers: {
-    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    name: formData['popup__content_type_name'],
-    about: formData['popup__content_type_occupation']
-  })
-}); 
+
+    api.getInitialUser().then(result => console.log(result));
     userDetails.setUserInfo(formData['popup__content_type_name'], formData['popup__content_type_occupation']);
     createPopupProfileEdit.closePopup();
   }
@@ -103,7 +116,7 @@ function createNewCard(item){
   return cardElement
 }
 
-createCardStaticList.renderItems();
+
 
 
 function openPopupAddPlace(){
@@ -114,14 +127,7 @@ function openPopupAddPlace(){
 
 function openPopupProfileEdit (){
 
-  fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
-  method: 'GET',
-  headers: {
-    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
-    'Content-Type': 'application/json'
-  }
-})
-.then(res => res.json())
+api.getInitialUser()
 .then((result) => {
   popupName.value = result.name;
   popupOccupation.value = result.about;
@@ -147,14 +153,7 @@ test.addEventListener('click', openPopupAgreeDelCard);
 
 function openPopupAvatarChange(){
 
-  fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
-    method: 'GET',
-    headers: {
-      authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(res => res.json())
+  api.getInitialUser()
   .then((result) => {
     popupAvatar.value = result.avatar;
     })
@@ -249,12 +248,3 @@ function comparisonId(userId){
 
   */
 
-  const api = new Api({
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-63',
-    headers: {
-      authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
-      'Content-Type': 'application/json'
-    }
-  }); 
-
-  api.initialUser(personalDetails);
