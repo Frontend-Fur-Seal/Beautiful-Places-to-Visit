@@ -26,7 +26,8 @@ import {
   personalDetails,
   popupAvatarChange,
   popupAvatar,
-  avatarContainer
+  avatarContainer,
+  popupDeleteCard
 } from '../utils/constants.js'
 import Popup from '../components/Popup';
 
@@ -41,7 +42,7 @@ const api = new Api({
 api.getInitialUser()
 .then((result) => {
   personalDetails.profileName.textContent = result.name;
-  personalDetails.profileOccupation.textContent =  result.about;
+  personalDetails.profileOccupation.textContent = result.about;
   personalDetails.avatar.src = result.avatar;
 })
 
@@ -66,21 +67,21 @@ api.getInitialCards()
   createCardStaticList.renderItems();
 })
 
-
-
-// const createPopupDeleteCard = new Popup(popupDeleteCard); - перенести в класс аватара
-//createPopupDeleteCard.setEventListeners();
-
+/*
+const createPopupDeleteCard = new Popup(popupDeleteCard); 
+createPopupDeleteCard.setEventListeners();
+*/
 const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
 
   {handleFormSubmit: (formData) => {
 
-    const title = { 
+      api.postInitialCard({
         name: formData['popupPlaceName'], 
-        link: formData['popupPlaceLink'] 
-      } 
-
-      //createCardStaticList.addItem(createNewCard(title));
+        link: formData['popupPlaceLink']
+      })
+      .then((result) => {
+        console.log(result)
+      })
 
       createPopupAddPlace.closePopup();   
     }});
@@ -92,8 +93,14 @@ const userDetails = new UserInfo(personalDetails);
 const createPopupProfileEdit = new PopupWithForm(popupChangeName, 
   {handleFormSubmit: (formData) => {
 
-    api.getInitialUser().then(result => console.log(result));
-    userDetails.setUserInfo(formData['popup__content_type_name'], formData['popup__content_type_occupation']);
+
+    api.postInitialUser({
+      name: formData['popup__content_type_name'], 
+      about: formData['popup__content_type_occupation']
+    })
+    .then((result) => {
+      userDetails.setUserInfo(result.name, result.about);
+    })
     createPopupProfileEdit.closePopup();
   }
 });
@@ -111,7 +118,8 @@ function createNewCard(item){
     createNewCardObject, 
     {handleCardClick: (name, link) => {
       createPopupFullImg.openPopup(name, link);
-    }});
+    }},
+    api);
   const cardElement = card.generateCard();
   return cardElement
 }
@@ -166,18 +174,8 @@ avatarContainer.addEventListener('click', openPopupAvatarChange)//оставит
 
 const createPopupAvatarEdit = new PopupWithForm(popupAvatarChange, 
   {handleFormSubmit: (formData) => {
-  fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
-  method: 'PATCH',
-  headers: {
-    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    avatar: formData['popup__content_type_avatar-link']
-  })
-}); 
-    personalDetails.avatar.src = formData['popup__content_type_avatar-link'];
-    createPopupProfileEdit.closePopup();
+    api.postInitialUserAvatar({avatar: formData['popupAvatarLink']})
+    createPopupAvatarEdit.closePopup();
   }
 });
 
@@ -200,51 +198,5 @@ function avatarHover(evt){
 testbuttonchangeavatar.addEventListener('mouseenter', avatarHover);
 testbuttonchangeavatar.addEventListener('mouseleave', avatarHover);
 
-/*
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-63',
-  headers: {
-    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
-    'Content-Type': 'application/json'
-  }
-});  
 
-*/
-/*
-function comparisonId(userId){
-  if(userId === '8a273213ce87337e742d70d2'){
-    console.log('eto ya')
-  }else{
-    console.log('eto ne ya')
-  }
-}
-
-  fetch('https://mesto.nomoreparties.co/v1/cohort-63/cards', {
-  method: 'GET',
-  headers: {
-    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
-    'Content-Type': 'application/json'
-  }
-})
-.then(res => res.json())
-.then((result) => {
-  result.forEach((element) => {
-    //console.log(element.owner._id)//писать сюда функцию, которая принимает id owner и сравнивает со своим id
-    comparisonId(element.owner._id)
-  })
-  })
-
-  fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
-  method: 'GET',
-  headers: {
-    authorization: '48d89f1d-6744-44c2-a9bf-a035b070ab5d',
-    'Content-Type': 'application/json'
-  }
-})
-.then(res => res.json())
-.then((result) => {
-  console.log(result)
-  })
-
-  */
 
