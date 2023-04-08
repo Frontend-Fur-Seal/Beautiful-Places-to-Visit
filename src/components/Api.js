@@ -5,17 +5,16 @@ class Api{
         
     }
 
+_statusError(res){
+  return res.ok ? res.json(): Promise.reject(res.status)
+}
+
 getInitialUser(){
   return fetch(`${this._baseUrl}/users/me`, {
     method: 'GET',
     headers: this._headers
   })
-  .then((res) => {
-    if(res.ok){
-      return res.json();
-    }
-  return Promise.reject(reason)
-  })
+  .then(res => this._statusError(res))
 }
 
 postInitialUser(data){
@@ -24,12 +23,7 @@ postInitialUser(data){
     headers: this._headers,
     body: JSON.stringify(data)
   })
-  .then((res) => {
-    if(res.ok){
-      return res.json();
-    }
-  return Promise.reject('reason')
-  })
+  .then(res => this._statusError(res))
 }
 
 postInitialUserAvatar(data){
@@ -38,12 +32,7 @@ postInitialUserAvatar(data){
     headers: this._headers,
     body: JSON.stringify(data)
   })
-  .then((res) => {
-    if(res.ok){
-      return res.json();
-    }
-  return Promise.reject('reason')
-  })
+  .then(res => this._statusError(res))
 }
 
 getInitialCards(){
@@ -51,12 +40,7 @@ getInitialCards(){
     method: 'GET',
     headers: this._headers
   })
-  .then((res) => {
-    if(res.ok){
-      return res.json();
-    }
-  return Promise.reject(reason)
-  })
+  .then(res => this._statusError(res))
 }
 postInitialCard(data){
   return fetch(`${this._baseUrl}/cards`, {
@@ -64,12 +48,7 @@ postInitialCard(data){
     headers: this._headers,
     body: JSON.stringify(data)
   })
-  .then((res) => {
-    if(res.ok){
-      return res.json();
-    }
-  return Promise.reject(reason)
-  })
+  .then(res => this._statusError(res))
 }
 
 cardDelete(cardId){
@@ -77,12 +56,23 @@ cardDelete(cardId){
     method: 'DELETE',
     headers: this._headers
   })
-  .then((res) => {
-    if(res.ok){
-      return res.json();
-    }
-  return Promise.reject(reason)
+  .then(res => this._statusError(res))
+}
+
+putLike(cardId){
+  return fetch(`${this._baseUrl}/cards/${cardId}/likes `, {
+    method: 'PUT',
+    headers: this._headers
   })
+  .then(res => this._statusError(res))
+}
+
+deleteLike(cardId){
+  return fetch(`${this._baseUrl}/cards/${cardId}/likes `, {
+    method: 'DELETE',
+    headers: this._headers
+  })
+  .then(res => this._statusError(res))
 }
 
 }

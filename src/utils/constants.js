@@ -23,7 +23,6 @@
   export const avatarContainer = document.querySelector('.profile__avatar-container');
   export const popupAvatarChange = document.querySelector('.popup_avatar-change');
 
-
   export const elements = '.elements';
 
   export const initialCards = [
@@ -54,6 +53,7 @@
   ]; 
 
   export const createNewCardObject = {
+    likesQuantity: '.element__likesQuantity',
     nameElement: '.element__name',
     photoElement: '.element__photo',
     likeElement: '.element__like',
