@@ -189,6 +189,12 @@ function createNewCard(item){
   return cardElement
 }
 
+// не работает рендер карточки при сабмите попапа
+
+function openPopupAddPlace(){
+  createPopupAddPlace.openPopup();
+  formValidatorPlace.resetOpnForm();
+}
 
 const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
 
@@ -207,6 +213,8 @@ const createPopupAddPlace = new PopupWithForm(popupAddPlace,
     }});
 
 createPopupAddPlace.setEventListeners();
+
+buttonAddPlace.addEventListener('click', openPopupAddPlace);
  
 //не работает сабмит удаления карты
 
@@ -217,12 +225,6 @@ const submitCardDelete = new PopupCardDelete(popupDeleteCard, {submitCardDelete:
 
 //
 
-function openPopupAddPlace(){
-  createPopupAddPlace.openPopup();
-  formValidatorPlace.resetOpnForm();
-}
-
-buttonAddPlace.addEventListener('click', openPopupAddPlace);
 
 
 
