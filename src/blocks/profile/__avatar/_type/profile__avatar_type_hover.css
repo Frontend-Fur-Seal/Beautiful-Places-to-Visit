@@ -1,0 +1,6 @@
+.profile__avatar_type_hover{
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    z-index: 1;
+}

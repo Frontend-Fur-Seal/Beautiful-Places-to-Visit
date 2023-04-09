@@ -58,6 +58,7 @@ Promise.all([api.getInitialUser(), api.getInitialCards()])
   userDetails.setUserInfo(user.name, user.about);
   userDetails.setUserAvatar(user.avatar);
   createCardStaticList.renderItems(cards);
+  console.log(cards);
 })
 
 //НЕ ТРОГАТЬ, ВСЕ РАБОТАЕТ
@@ -72,6 +73,7 @@ formValidatorChangeAvatar.enableValidation();
 
 const createPopupProfileEdit = new PopupWithForm(popupChangeName, 
   {handleFormSubmit: (formData) => {
+    createPopupProfileEdit.loadedtext('Сохранение...')
     api.postInitialUser({
       name: formData['popup__content_type_name'], 
       about: formData['popup__content_type_occupation']
@@ -79,6 +81,8 @@ const createPopupProfileEdit = new PopupWithForm(popupChangeName,
     .then((result) => {
       userDetails.setUserInfo(result.name, result.about);
     })
+    .catch((error) => console.log(error))
+    .finally(createPopupProfileEdit.loadedtext('Сохранить'))
     createPopupProfileEdit.closePopup();
   }
 });
@@ -102,10 +106,13 @@ createPopupFullImg.setEventListeners();
 
 const createPopupAvatarEdit = new PopupWithForm(popupAvatarChange, 
   {handleFormSubmit: (formData) => {
+    createPopupAvatarEdit.loadedtext('Сохранение...')
     api.postInitialUserAvatar({avatar: formData['popupAvatarLink']})
     .then((result) => {
       userDetails.setUserAvatar(result.avatar)
     })
+    .catch((error) => console.log(error))
+    .finally(createPopupAvatarEdit.loadedtext('Сохранить'))
     createPopupAvatarEdit.closePopup();
   }
 });
@@ -186,15 +193,16 @@ function createNewCard(item){
 const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
 
   {handleFormSubmit: (formData) => {
-
+    createPopupAddPlace.loadedtext('Сохранение...')
       api.postInitialCard({
         name: formData['popupPlaceName'], 
         link: formData['popupPlaceLink']
       })
       .then((result) => {
-        console.log(result)
-        createCardStaticList.renderItems(result);
+        createCardStaticList.addItem(createNewCard(result));
     })
+      .catch((error) => console.log(error))
+      .finally(createPopupAddPlace.loadedtext('Создать'))
       createPopupAddPlace.closePopup();   
     }});
 
