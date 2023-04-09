@@ -33,6 +33,7 @@ import {
 } from '../utils/constants.js'
 import Popup from '../components/Popup';
 import PopupCardDelete from '../components/PopupCardDelete';
+import { Promise } from 'core-js';
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-63',
@@ -42,19 +43,91 @@ const api = new Api({
   }
 }); 
 
-api.getInitialUser()
-.then((result) => {
-  personalDetails.profileName.textContent = result.name;
-  personalDetails.profileOccupation.textContent = result.about;
-  personalDetails.avatar.src = result.avatar;
+const userDetails = new UserInfo(personalDetails);
+
+Promise.all([api.getInitialUser(), api.getInitialCards()])
+.then(([user, cards]) => {
+  userDetails.setUserInfo(user.name, user.about);
+  userDetails.setUserAvatar(user.avatar);
+  console.log(cards)
 })
 
+//НЕ ТРОГАТЬ, ВСЕ РАБОТАЕТ
 
 export const formValidatorPlace = new FormValidator(formValidatorPlaceObject, addPlaceForm);
 export const formValidatorName = new FormValidator(formValidatorPlaceObject, userInfoForm);
 
 formValidatorPlace.enableValidation();
 formValidatorName.enableValidation();
+
+const createPopupProfileEdit = new PopupWithForm(popupChangeName, 
+  {handleFormSubmit: (formData) => {
+    api.postInitialUser({
+      name: formData['popup__content_type_name'], 
+      about: formData['popup__content_type_occupation']
+    })
+    .then((result) => {
+      userDetails.setUserInfo(result.name, result.about);
+    })
+    createPopupProfileEdit.closePopup();
+  }
+});
+
+createPopupProfileEdit.setEventListeners();
+
+function openPopupProfileEdit (){
+    api.getInitialUser()
+    .then((result) => {
+      popupName.value = result.name;
+      popupOccupation.value = result.about;
+    })
+    createPopupProfileEdit.openPopup();
+    formValidatorName.resetOpnForm();
+  }
+  
+  buttonNameChange.addEventListener('click', openPopupProfileEdit);
+
+const createPopupFullImg = new PopupWithImage(popupFullPhoto);
+createPopupFullImg.setEventListeners();
+
+const createPopupAvatarEdit = new PopupWithForm(popupAvatarChange, 
+  {handleFormSubmit: (formData) => {
+    api.postInitialUserAvatar({avatar: formData['popupAvatarLink']})
+    .then((result) => {
+      userDetails.setUserAvatar(result.avatar)
+    })
+    createPopupAvatarEdit.closePopup();
+  }
+});
+
+function openPopupAvatarChange(){
+
+  api.getInitialUser()
+  .then((result) => {
+    popupAvatar.value = result.avatar;
+    })
+
+  createPopupAvatarEdit.openPopup();
+} 
+
+createPopupAvatarEdit.setEventListeners(); 
+
+function avatarHover(evt){
+ if (evt.type == 'mouseenter'){
+  changeAvatarButton.style.zIndex = '10';
+  profileAvatar.style.opacity = '.8';
+ }if (evt.type == 'mouseleave'){
+  changeAvatarButton.style.zIndex = '1';
+  profileAvatar.style.opacity = '1';
+ }
+}
+
+avatarContainer.addEventListener('click', openPopupAvatarChange)
+avatarContainer.addEventListener('mouseenter', avatarHover);
+avatarContainer.addEventListener('mouseleave', avatarHover);
+
+
+//НЕ ТРОГАТЬ, ВСЕ РАБОТАЕТ
 
 function createNewCard(item){
   const card = new Card(
@@ -67,7 +140,7 @@ function createNewCard(item){
         if(result._id != ownerId){
         delElement.style.display = 'none'
       }
-    })
+      })
     }},
     {handleCardClick: (name, link) => {
       createPopupFullImg.openPopup(name, link);
@@ -94,6 +167,22 @@ function createNewCard(item){
   return cardElement
 }
 
+/*
+const createCardStaticList = new Section({
+  items: api.getInitialCards()
+  .then((result) => {
+    return result
+  }),
+  renderer: (elem) => {
+    createNewCard(elem);
+    createCardStaticList.addItem(createNewCard(elem));
+  },
+  elements
+})
+
+createCardStaticList.renderItems();
+*/
+/*
 api.getInitialCards()
 .then((result) => {
   const createCardStaticList = new Section({
@@ -106,7 +195,7 @@ api.getInitialCards()
 
   createCardStaticList.renderItems();
 })
-
+*/
 const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
 
   {handleFormSubmit: (formData) => {
@@ -116,100 +205,31 @@ const createPopupAddPlace = new PopupWithForm(popupAddPlace,
         link: formData['popupPlaceLink']
       })
       .then((result) => {
-        console.log(result)
-      })
-
+        
+    })
       createPopupAddPlace.closePopup();   
     }});
 
 createPopupAddPlace.setEventListeners();
-
-const userDetails = new UserInfo(personalDetails);
-
-const createPopupProfileEdit = new PopupWithForm(popupChangeName, 
-  {handleFormSubmit: (formData) => {
-
-
-    api.postInitialUser({
-      name: formData['popup__content_type_name'], 
-      about: formData['popup__content_type_occupation']
-    })
-    .then((result) => {
-      userDetails.setUserInfo(result.name, result.about);
-    })
-    createPopupProfileEdit.closePopup();
-  }
-});
-
-createPopupProfileEdit.setEventListeners();
-
-const createPopupFullImg = new PopupWithImage(popupFullPhoto);
-createPopupFullImg.setEventListeners();
  
+//не работает сабмит удаления карты
+
 const submitCardDelete = new PopupCardDelete(popupDeleteCard, {submitCardDelete: (elementId) => {
   console.log(elementId);
   submitCardDelete.closePopup();
 }})
+
+//
 
 function openPopupAddPlace(){
   createPopupAddPlace.openPopup();
   formValidatorPlace.resetOpnForm();
 }
 
-function openPopupProfileEdit (){
-
-api.getInitialUser()
-.then((result) => {
-  popupName.value = result.name;
-  popupOccupation.value = result.about;
-  })
-
-  createPopupProfileEdit.openPopup();
-  formValidatorName.resetOpnForm();
-}
-
-buttonNameChange.addEventListener('click', openPopupProfileEdit);
 buttonAddPlace.addEventListener('click', openPopupAddPlace);
 
 
-function openPopupAvatarChange(){
 
-  api.getInitialUser()
-  .then((result) => {
-    popupAvatar.value = result.avatar;
-    })
-
-  createPopupAvatarEdit.openPopup();
-} 
-
-avatarContainer.addEventListener('click', openPopupAvatarChange)//оставить
-
-
-const createPopupAvatarEdit = new PopupWithForm(popupAvatarChange, 
-  {handleFormSubmit: (formData) => {
-    api.postInitialUserAvatar({avatar: formData['popupAvatarLink']})
-    createPopupAvatarEdit.closePopup();
-  }
-});
-
-createPopupAvatarEdit.setEventListeners(); 
-
-const testbuttonchangeavatar = document.querySelector('.profile__avatar-container');
-
-
-function avatarHover(evt){
- if (evt.type == 'mouseenter'){
-  changeAvatarButton.style.zIndex = '10';
-  profileAvatar.style.opacity = '.8';
- }if (evt.type == 'mouseleave'){
-  changeAvatarButton.style.zIndex = '1';
-  profileAvatar.style.opacity = '1';
- }
-}
-
-
-testbuttonchangeavatar.addEventListener('mouseenter', avatarHover);
-testbuttonchangeavatar.addEventListener('mouseleave', avatarHover);
 
 
 

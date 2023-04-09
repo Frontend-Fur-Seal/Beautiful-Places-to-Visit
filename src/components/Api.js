@@ -14,7 +14,17 @@ getInitialUser(){
     method: 'GET',
     headers: this._headers
   })
-  .then(res => this._statusError(res))
+  .then((res) => {
+    return this._statusError(res)})
+}
+
+getInitialCards(){
+  return fetch(`${this._baseUrl}/cards`, {
+    method: 'GET',
+    headers: this._headers
+  })
+  .then((res) => {
+    return this._statusError(res)})
 }
 
 postInitialUser(data){
@@ -35,13 +45,6 @@ postInitialUserAvatar(data){
   .then(res => this._statusError(res))
 }
 
-getInitialCards(){
-  return fetch(`${this._baseUrl}/cards`, {
-    method: 'GET',
-    headers: this._headers
-  })
-  .then(res => this._statusError(res))
-}
 postInitialCard(data){
   return fetch(`${this._baseUrl}/cards`, {
     method: 'POST',
