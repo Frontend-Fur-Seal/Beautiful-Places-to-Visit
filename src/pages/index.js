@@ -15,6 +15,7 @@ import {
   elements,
   userInfoForm,
   addPlaceForm,
+  changeAvatar,
   popupFullPhoto,
   popupChangeName,
   popupAddPlace,
@@ -54,11 +55,13 @@ Promise.all([api.getInitialUser(), api.getInitialCards()])
 
 //НЕ ТРОГАТЬ, ВСЕ РАБОТАЕТ
 
-export const formValidatorPlace = new FormValidator(formValidatorPlaceObject, addPlaceForm);
-export const formValidatorName = new FormValidator(formValidatorPlaceObject, userInfoForm);
+const formValidatorPlace = new FormValidator(formValidatorPlaceObject, addPlaceForm);
+const formValidatorName = new FormValidator(formValidatorPlaceObject, userInfoForm);
+const formValidatorChangeAvatar = new FormValidator(formValidatorPlaceObject, changeAvatar);
 
 formValidatorPlace.enableValidation();
 formValidatorName.enableValidation();
+formValidatorChangeAvatar.enableValidation();
 
 const createPopupProfileEdit = new PopupWithForm(popupChangeName, 
   {handleFormSubmit: (formData) => {
@@ -134,13 +137,18 @@ function createNewCard(item){
     item, 
     '#element-template', 
     createNewCardObject, 
-    {checkuserId: (ownerId, delElement) => {
+    {checkuserId: (ownerId, delElement, likeMassive, cardLike) => {
       api.getInitialUser()
       .then((result) => {
         if(result._id != ownerId){
         delElement.style.display = 'none'
       }
+      likeMassive.forEach(element => {
+        if(element._id === result._id){
+          cardLike.classList.add('element__like_active');
+        }
       })
+    })
     }},
     {handleCardClick: (name, link) => {
       createPopupFullImg.openPopup(name, link);
@@ -167,22 +175,6 @@ function createNewCard(item){
   return cardElement
 }
 
-/*
-const createCardStaticList = new Section({
-  items: api.getInitialCards()
-  .then((result) => {
-    return result
-  }),
-  renderer: (elem) => {
-    createNewCard(elem);
-    createCardStaticList.addItem(createNewCard(elem));
-  },
-  elements
-})
-
-createCardStaticList.renderItems();
-*/
-/*
 api.getInitialCards()
 .then((result) => {
   const createCardStaticList = new Section({
@@ -195,7 +187,7 @@ api.getInitialCards()
 
   createCardStaticList.renderItems();
 })
-*/
+
 const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
 
   {handleFormSubmit: (formData) => {
