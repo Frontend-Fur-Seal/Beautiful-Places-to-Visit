@@ -46,11 +46,18 @@ const api = new Api({
 
 const userDetails = new UserInfo(personalDetails);
 
+const createCardStaticList = new Section({
+  renderer: (elem) => {
+    createNewCard(elem);
+    createCardStaticList.addItem(createNewCard(elem));
+  }
+}, elements);
+
 Promise.all([api.getInitialUser(), api.getInitialCards()])
 .then(([user, cards]) => {
   userDetails.setUserInfo(user.name, user.about);
   userDetails.setUserAvatar(user.avatar);
-  console.log(cards)
+  createCardStaticList.renderItems(cards);
 })
 
 //НЕ ТРОГАТЬ, ВСЕ РАБОТАЕТ
@@ -175,18 +182,6 @@ function createNewCard(item){
   return cardElement
 }
 
-api.getInitialCards()
-.then((result) => {
-  const createCardStaticList = new Section({
-    items: result,
-    renderer: (elem) => {
-      createNewCard(elem);
-      createCardStaticList.addItem(createNewCard(elem));
-    }
-  }, elements);
-
-  createCardStaticList.renderItems();
-})
 
 const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
 
@@ -197,7 +192,8 @@ const createPopupAddPlace = new PopupWithForm(popupAddPlace,
         link: formData['popupPlaceLink']
       })
       .then((result) => {
-        
+        console.log(result)
+        createCardStaticList.renderItems(result);
     })
       createPopupAddPlace.closePopup();   
     }});
