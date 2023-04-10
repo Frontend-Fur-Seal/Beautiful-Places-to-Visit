@@ -20,8 +20,6 @@ class Card{
     this._likesQuantity = this._element.querySelector(this._selectors.likesQuantity)
   }
 
-
-
   _setEventsListeners(){
     this._cardLike.addEventListener('click', () => {
       this._handleCardLike(this._cardLike, this._id, this._likesQuantity);
@@ -48,12 +46,6 @@ class Card{
     this._checkuserId(this._ownerId, this._delElement, this._likeMassive, this._cardLike);
     this._setEventsListeners();
     this._likesQuantity.textContent = this._likeMassive.length;
-    /*this._likeMassive.forEach(element => {
-      if(element._id === this._ownerId){
-        console.log(element._id, this._ownerId)
-        this._cardLike.classList.add('element__like_active');
-      }
-    });*/
     this._nameElement.textContent = this._name;
     this._photoElement.src = this._link;
     this._photoElement.alt = this._name;

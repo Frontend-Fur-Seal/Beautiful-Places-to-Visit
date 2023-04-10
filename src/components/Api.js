@@ -51,7 +51,8 @@ postInitialCard(data){
     headers: this._headers,
     body: JSON.stringify(data)
   })
-  .then(res => this._statusError(res))
+  .then((res) => {
+    return this._statusError(res)})
 }
 
 cardDelete(cardId){

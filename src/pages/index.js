@@ -6,6 +6,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js"
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupCardDelete from "../components/PopupCardDelete.js";
 import Api from "../components/Api.js"
 import {
   buttonNameChange,
@@ -32,8 +33,7 @@ import {
   likesQuantity,
   likesContainer
 } from '../utils/constants.js'
-import Popup from '../components/Popup';
-import PopupCardDelete from '../components/PopupCardDelete';
+
 import { Promise } from 'core-js';
 
 const api = new Api({
@@ -45,10 +45,10 @@ const api = new Api({
 }); 
 
 const userDetails = new UserInfo(personalDetails);
+const submitCardDelete = new PopupCardDelete(popupDeleteCard);
 
 const createCardStaticList = new Section({
   renderer: (elem) => {
-    createNewCard(elem);
     createCardStaticList.addItem(createNewCard(elem));
   }
 }, elements);
@@ -58,7 +58,6 @@ Promise.all([api.getInitialUser(), api.getInitialCards()])
   userDetails.setUserInfo(user.name, user.about);
   userDetails.setUserAvatar(user.avatar);
   createCardStaticList.renderItems(cards);
-  console.log(cards);
 })
 
 //НЕ ТРОГАТЬ, ВСЕ РАБОТАЕТ
@@ -168,6 +167,7 @@ function createNewCard(item){
       createPopupFullImg.openPopup(name, link);
     }},
     {handleCardDelete: (element, cardId) => {
+      submitCardDelete.openPopup();
 
     }},
     {handleCardLike: (likeElement, cardId, likes) => {
@@ -199,13 +199,14 @@ function openPopupAddPlace(){
 const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
 
   {handleFormSubmit: (formData) => {
-    createPopupAddPlace.loadedtext('Сохранение...')
+    createPopupAddPlace.loadedtext('Сохранение...');
       api.postInitialCard({
         name: formData['popupPlaceName'], 
         link: formData['popupPlaceLink']
       })
       .then((result) => {
         createCardStaticList.addItem(createNewCard(result));
+        //ПРОБЛЕМА НЕ РЕШЕНА
     })
       .catch((error) => console.log(error))
       .finally(createPopupAddPlace.loadedtext('Создать'))
@@ -215,16 +216,6 @@ const createPopupAddPlace = new PopupWithForm(popupAddPlace,
 createPopupAddPlace.setEventListeners();
 
 buttonAddPlace.addEventListener('click', openPopupAddPlace);
- 
-//не работает сабмит удаления карты
-
-const submitCardDelete = new PopupCardDelete(popupDeleteCard, {submitCardDelete: (elementId) => {
-  console.log(elementId);
-  submitCardDelete.closePopup();
-}})
-
-//
-
 
 
 

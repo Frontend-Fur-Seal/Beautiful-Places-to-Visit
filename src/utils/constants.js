@@ -9,12 +9,6 @@
   export const popupFullPhoto = document.querySelector('.popup_full-img');
   export const popupChangeName = document.querySelector('.popup_name-change');
   export const popupAddPlace = document.querySelector('.popup_add-place');
-  export const kolaPeninsula = new URL('../images/kola-peninsula.jpg', import.meta.url);
-  export const ladoga = new URL('../images/ladozhskoe-ozero.jpg', import.meta.url);
-  export const platoPutorana = new URL('../images/plato-putorana.jpg', import.meta.url);
-  export const ruskeala = new URL('../images/ruskeala.jpg', import.meta.url);
-  export const solovky = new URL('../images/solovky.jpg', import.meta.url);
-  export const kamchatka = new URL('../images/kamchatka.jpg', import.meta.url);
  
   export const changeAvatarButton = document.querySelector('.profile__avatar_type_hover');
   export const buttonChangeAvatar = new URL('../images/change-name.svg', import.meta.url);
@@ -25,33 +19,7 @@
 
   export const elements = '.elements';
 
-  export const initialCards = [
-    {
-      name: 'Кольский полуостров',
-      link: kolaPeninsula
-    },
-    {
-      name: 'Ладожское озеро',
-      link: ladoga
-    },
-    {
-      name: 'Плато-Путорана',
-      link: platoPutorana
-    },
-    {
-      name: 'Рускеала',
-      link: ruskeala
-    },
-    {
-      name: 'Соловецкие острова',
-      link: solovky
-    },
-    {
-      name: 'Камчатка',
-      link: kamchatka
-    }
-  ]; 
-
+  
   export const createNewCardObject = {
     likesQuantity: '.element__likesQuantity',
     nameElement: '.element__name',
