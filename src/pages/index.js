@@ -20,7 +20,6 @@ import {
   popupFullPhoto,
   popupChangeName,
   popupAddPlace,
-  initialCards,
   createNewCardObject,
   formValidatorPlaceObject,
   changeAvatarButton,
@@ -29,9 +28,7 @@ import {
   popupAvatarChange,
   popupAvatar,
   avatarContainer,
-  popupDeleteCard,
-  likesQuantity,
-  likesContainer
+  popupDeleteCard
 } from '../utils/constants.js'
 
 import { Promise } from 'core-js';
@@ -73,8 +70,6 @@ Promise.all([api.getInitialUser(), api.getInitialCards()])
   userDetails.setUserAvatar(user.avatar);
   createCardStaticList.renderItems(cards);
 })
-
-//НЕ ТРОГАТЬ, ВСЕ РАБОТАЕТ
 
 const formValidatorPlace = new FormValidator(formValidatorPlaceObject, addPlaceForm);
 const formValidatorName = new FormValidator(formValidatorPlaceObject, userInfoForm);
@@ -156,9 +151,6 @@ avatarContainer.addEventListener('click', openPopupAvatarChange)
 avatarContainer.addEventListener('mouseenter', avatarHover);
 avatarContainer.addEventListener('mouseleave', avatarHover);
 
-
-//НЕ ТРОГАТЬ, ВСЕ РАБОТАЕТ
-
 function addedLikes(likeElement, cardId, likesQuantity){
   if(likeElement.classList.contains('element__like_active')){
     api.putLike(cardId)
@@ -211,8 +203,6 @@ function createNewCard(item){
   return cardElement
 }
 
-// не работает рендер карточки при сабмите попапа
-
 function openPopupAddPlace(){
   createPopupAddPlace.openPopup();
   formValidatorPlace.resetOpnForm();
@@ -228,7 +218,6 @@ const createPopupAddPlace = new PopupWithForm(popupAddPlace,
       })
       .then((result) => {
         createCardStaticList.addItem(createNewCard(result));
-        //ПРОБЛЕМА НЕ РЕШЕНА
     })
       .catch((error) => console.log(error))
       .finally(createPopupAddPlace.loadedtext('Создать'))
