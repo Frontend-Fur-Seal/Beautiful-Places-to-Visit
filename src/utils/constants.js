@@ -10,7 +10,7 @@
   export const popupChangeName = document.querySelector('.popup_name-change');
   export const popupAddPlace = document.querySelector('.popup_add-place');
  
-  export const changeAvatarButton = document.querySelector('.profile__avatar_type_hover');
+  export const changeAvatarButton = document.querySelector('.profile__avatar-hover');
   export const buttonChangeAvatar = new URL('../images/change-name.svg', import.meta.url);
   export const popupDeleteCard = document.querySelector('.popup_delete-agree');
   export const profileAvatar = document.querySelector('.profile__avatar');
