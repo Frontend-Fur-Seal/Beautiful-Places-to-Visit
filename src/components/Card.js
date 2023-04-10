@@ -1,7 +1,7 @@
 class Card{
-  constructor(data, templates, selectors, {checkuserId}, {handleCardClick}, {handleCardDelete}, {handleCardLike}, api){
-    this._api = api;
-    this._checkuserId = checkuserId;
+  constructor(data, templates, selectors,{checkLikeOwner}, {checkDeleteElement}, {handleCardClick}, {handleCardDelete}, {handleCardLike}){
+    this._checkLikeOwner = checkLikeOwner;
+    this._checkDeleteElement = checkDeleteElement;
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
@@ -24,9 +24,13 @@ class Card{
     this._cardLike.addEventListener('click', () => {
       this._handleCardLike(this._cardLike, this._id, this._likesQuantity);
     });
+
     this._delElement.addEventListener('click', () => {
-      this._handleCardDelete(this._element, this._id);
+      this._handleCardDelete({
+        element: this._element, 
+        cardId: this._id})
     });
+
     this._photoElement.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
     });
@@ -43,7 +47,8 @@ class Card{
   }
 
   generateCard() {
-    this._checkuserId(this._ownerId, this._delElement, this._likeMassive, this._cardLike);
+    this._checkDeleteElement(this._ownerId, this._delElement);
+    this._checkLikeOwner(this._likeMassive, this._cardLike);
     this._setEventsListeners();
     this._likesQuantity.textContent = this._likeMassive.length;
     this._nameElement.textContent = this._name;

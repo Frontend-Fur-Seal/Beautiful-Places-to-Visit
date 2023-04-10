@@ -45,7 +45,21 @@ const api = new Api({
 }); 
 
 const userDetails = new UserInfo(personalDetails);
-const submitCardDelete = new PopupCardDelete(popupDeleteCard);
+
+const deleteCard = new PopupCardDelete(popupDeleteCard, {
+  handleSubmitCardDelete: (card) => {
+    api.cardDelete(card.cardId)
+    .then((result) => {
+      console.log(result);
+      card.element.remove();
+      card.element = null;
+      deleteCard.closePopup();
+    })
+    .catch((error) => console.log(error))
+  }
+});
+
+deleteCard.setEventListeners();
 
 const createCardStaticList = new Section({
   renderer: (elem) => {
@@ -145,46 +159,54 @@ avatarContainer.addEventListener('mouseleave', avatarHover);
 
 //НЕ ТРОГАТЬ, ВСЕ РАБОТАЕТ
 
+function addedLikes(likeElement, cardId, likesQuantity){
+  if(likeElement.classList.contains('element__like_active')){
+    api.putLike(cardId)
+    .then((result) => {
+      likesQuantity.textContent = result.likes.length;
+    });
+  }else{
+    api.deleteLike(cardId)
+    .then((result) => {
+      likesQuantity.textContent = result.likes.length;
+    });
+  }
+}
+
 function createNewCard(item){
   const card = new Card(
     item, 
     '#element-template', 
     createNewCardObject, 
-    {checkuserId: (ownerId, delElement, likeMassive, cardLike) => {
+    {checkLikeOwner: (likeMassive, cardLike) => {
+      api.getInitialUser()
+      .then((result) => {
+        likeMassive.forEach(element => {
+          if(element._id === result._id){
+            cardLike.classList.add('element__like_active');
+          }
+        })
+      })
+    }},
+    {checkDeleteElement: (ownerId, delElement) => {
       api.getInitialUser()
       .then((result) => {
         if(result._id != ownerId){
-        delElement.style.display = 'none'
-      }
-      likeMassive.forEach(element => {
-        if(element._id === result._id){
-          cardLike.classList.add('element__like_active');
+          delElement.style.display = 'none'
         }
       })
-    })
     }},
     {handleCardClick: (name, link) => {
       createPopupFullImg.openPopup(name, link);
     }},
-    {handleCardDelete: (element, cardId) => {
-      submitCardDelete.openPopup();
-
-    }},
-    {handleCardLike: (likeElement, cardId, likes) => {
+    {handleCardDelete: ({element, cardId}) => {
+      deleteCard.openPopup({element, cardId});
+      }
+    },
+    {handleCardLike: (likeElement, cardId, likesQuantity) => {
       likeElement.classList.toggle('element__like_active');
-        if(likeElement.classList.contains('element__like_active')){
-          api.putLike(cardId)
-          .then((result) => {
-            likes.textContent = result.likes.length;
-          });
-        }else{
-          api.deleteLike(cardId)
-          .then((result) => {
-            likes.textContent = result.likes.length;
-          });
-        }
-    }},
-    api);
+      addedLikes(likeElement, cardId, likesQuantity);
+    }});
   const cardElement = card.generateCard();
   return cardElement
 }
