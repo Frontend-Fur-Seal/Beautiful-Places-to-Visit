@@ -20,15 +20,18 @@ class Card{
     this._likesQuantity = this._element.querySelector(this._selectors.likesQuantity)
   }
 
+  submitCardDelete(){
+    this._element.remove();
+    this._element = null;
+  }
+
   _setEventsListeners(){
     this._cardLike.addEventListener('click', () => {
       this._handleCardLike(this._cardLike, this._id, this._likesQuantity);
     });
 
     this._delElement.addEventListener('click', () => {
-      this._handleCardDelete({
-        element: this._element, 
-        cardId: this._id})
+      this._handleCardDelete(this);
     });
 
     this._photoElement.addEventListener('click', () => {

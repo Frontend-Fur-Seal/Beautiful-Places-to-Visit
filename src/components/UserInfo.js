@@ -7,11 +7,19 @@ class UserInfo{
 
     setUserInfo(name, occupation){ 
         this._profileName.textContent = name; 
-        this._profileOccupation.textContent = occupation;         
+        this._profileOccupation.textContent = occupation;        
     } 
 
     setUserAvatar(avatar){
         this._profileAvatar.src = avatar;
+    }
+    
+    getUserInfo(){
+        return{
+            name: this._profileName.textContent,
+            about: this._profileOccupation.textContent,
+            avatar: this._profileAvatar.src
+        }
     }
 }
 

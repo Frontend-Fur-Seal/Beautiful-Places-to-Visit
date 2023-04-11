@@ -54,20 +54,11 @@
             <span class="popup__message-error name-place-input-error"></span>
           </div>
           <div class="popup__input-wrap">
-            <input required type="url" class="popup__input popup__content popup__content_type_link" name="popupPlaceLink" placeholder="Ссылка на   картинку" id="link-input">
+            <input required type="url" class="popup__input popup__content popup__content_type_link" name="popupPlaceLink" placeholder="Ссылка на картинку" id="link-input">
             <span class="popup__message-error link-input-error"></span>
           </div>
           <button type="submit" class="popup__submit">Создать</button>
         </form>
-        <button class="popup__close" type="reset"></button>
-      </div>
-    </section>
-    <section class="popup popup_full-img">
-      <div class="popup__container popup__container_full-img">
-        <figure class="popup__figure">
-          <img class="popup__image" src="#" alt="">
-          <figcaption class="popup__figcaption"></figcaption>
-        </figure>
         <button class="popup__close" type="reset"></button>
       </div>
     </section>
@@ -76,7 +67,7 @@
         <h2 class="popup__title">Обновить аватар</h2>
         <form class="popup__form" name="avatarChange" novalidate>
           <div class="popup__input-wrap">
-            <input required type="url" class="popup__input popup__content popup__content_type_avatar-link" name="popupAvatarLink" id="avatar-link-input">
+            <input required type="url" class="popup__input popup__content popup__content_type_avatar-link" placeholder="Ссылка на аватар" name="popupAvatarLink" id="avatar-link-input">
             <span class="popup__message-error avatar-link-input-error"></span>
           </div>
           <button type="submit" class="popup__submit">Сохранить</button>
@@ -88,6 +79,15 @@
       <div class="popup__container popup__container_delete-agree">
         <h2 class="popup__title">Вы уверены?</h2>
           <button type="submit" class="popup__submit">Да</button>
+        <button class="popup__close" type="reset"></button>
+      </div>
+    </section>
+    <section class="popup popup_full-img">
+      <div class="popup__container popup__container_full-img">
+        <figure class="popup__figure">
+          <img class="popup__image" src="#" alt="">
+          <figcaption class="popup__figcaption"></figcaption>
+        </figure>
         <button class="popup__close" type="reset"></button>
       </div>
     </section>
