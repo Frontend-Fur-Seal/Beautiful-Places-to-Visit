@@ -17,18 +17,12 @@ import {
   userInfoForm,
   addPlaceForm,
   changeAvatar,
-  popupFullPhoto,
-  popupChangeName,
-  popupAddPlace,
   createNewCardObject,
   formValidatorPlaceObject,
   changeAvatarButton,
   profileAvatar,
   personalDetails,
-  popupAvatarChange,
-  popupAvatar,
-  avatarContainer,
-  popupDeleteCard
+  avatarContainer
 } from '../utils/constants.js'
 
 import { Promise } from 'core-js';
@@ -43,7 +37,7 @@ const api = new Api({
 
 const userDetails = new UserInfo(personalDetails);
 
-const deleteCard = new PopupCardDelete(popupDeleteCard);
+const deleteCard = new PopupCardDelete('.popup_delete-agree');
 deleteCard.setEventListeners();
 
 const createCardStaticList = new Section({
@@ -73,7 +67,7 @@ formValidatorPlace.enableValidation();
 formValidatorName.enableValidation();
 formValidatorChangeAvatar.enableValidation();
 
-const createPopupProfileEdit = new PopupWithForm(popupChangeName, 
+const createPopupProfileEdit = new PopupWithForm('.popup_name-change', 
   {handleFormSubmit: (formData) => {
     createPopupProfileEdit.loadedtext('Сохранение...')
     api.postInitialUser({
@@ -101,10 +95,10 @@ function openPopupProfileEdit (){
   
   buttonNameChange.addEventListener('click', openPopupProfileEdit);
 
-const createPopupFullImg = new PopupWithImage(popupFullPhoto);
+const createPopupFullImg = new PopupWithImage('.popup_full-img');
 createPopupFullImg.setEventListeners();
 
-const createPopupAvatarEdit = new PopupWithForm(popupAvatarChange, 
+const createPopupAvatarEdit = new PopupWithForm('.popup_avatar-change', 
   {handleFormSubmit: (formData) => {
     createPopupAvatarEdit.loadedtext('Сохранение...')
     api.postInitialUserAvatar({avatar: formData['popupAvatarLink']})
@@ -188,7 +182,7 @@ function openPopupAddPlace(){
   formValidatorPlace.resetOpnForm();
 }
 
-const createPopupAddPlace = new PopupWithForm(popupAddPlace, 
+const createPopupAddPlace = new PopupWithForm('.popup_add-place', 
 
   {handleFormSubmit: (formData) => {
     createPopupAddPlace.loadedtext('Сохранение...');

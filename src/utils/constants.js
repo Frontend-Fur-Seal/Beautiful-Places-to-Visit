@@ -5,17 +5,11 @@
   export const changeAvatar = document.forms.avatarChange;
   export const popupName = userInfoForm.querySelector(".popup__content_type_name");
   export const popupAvatar = changeAvatar.querySelector(".popup__content_type_avatar-link");
-  export const popupOccupation = userInfoForm.querySelector(".popup__content_type_occupation");
-  export const popupFullPhoto = document.querySelector('.popup_full-img');
-  export const popupChangeName = document.querySelector('.popup_name-change');
-  export const popupAddPlace = document.querySelector('.popup_add-place');
- 
+  export const popupOccupation = userInfoForm.querySelector(".popup__content_type_occupation"); 
   export const changeAvatarButton = document.querySelector('.profile__avatar-hover');
   export const buttonChangeAvatar = new URL('../images/change-name.svg', import.meta.url);
-  export const popupDeleteCard = document.querySelector('.popup_delete-agree');
   export const profileAvatar = document.querySelector('.profile__avatar');
   export const avatarContainer = document.querySelector('.profile__avatar-container');
-  export const popupAvatarChange = document.querySelector('.popup_avatar-change');
 
   export const elements = '.elements';
 
