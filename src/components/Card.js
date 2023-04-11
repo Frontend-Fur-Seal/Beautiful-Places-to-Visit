@@ -1,10 +1,9 @@
 class Card{
-  constructor(data, templates, selectors,{checkLikeOwner}, {checkDeleteElement}, {handleCardClick}, {handleCardDelete}, {handleCardLike}){
-    this._checkLikeOwner = checkLikeOwner;
-    this._checkDeleteElement = checkDeleteElement;
+  constructor(userId, data, templates, selectors, {handleCardClick}, {handleCardDelete}, {handleCardLike}){
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
+    this._userId = userId;
     this._ownerId = data.owner._id;
     this._likeMassive = data.likes;
     this._selectors = selectors;
@@ -14,7 +13,7 @@ class Card{
     this._handleCardLike = handleCardLike;
     this._element = this._getTemplate();
     this._delElement = this._element.querySelector(this._selectors.deleteElement);
-    this._cardLike = this._element.querySelector(this._selectors.likeElement);
+    this._likeButton = this._element.querySelector(this._selectors.likeElement);
     this._photoElement = this._element.querySelector(this._selectors.photoElement);
     this._nameElement = this._element.querySelector(this._selectors.nameElement);
     this._likesQuantity = this._element.querySelector(this._selectors.likesQuantity)
@@ -26,8 +25,8 @@ class Card{
   }
 
   _setEventsListeners(){
-    this._cardLike.addEventListener('click', () => {
-      this._handleCardLike(this._cardLike, this._id, this._likesQuantity);
+    this._likeButton.addEventListener('click', () => {
+      this._handleCardLike(this._likeButton, this._id, this._likesQuantity);
     });
 
     this._delElement.addEventListener('click', () => {
@@ -49,9 +48,22 @@ class Card{
     return cardElement;
   }
 
+  _checkLikeOwner(){
+    this._likeMassive.forEach(element => {
+      if(element._id === this._userId){
+        this._likeButton.classList.add('element__like_active');
+      }
+    })
+}
+  _checkDeleteButton(){
+    if(this._userId != this._ownerId){
+      this._delElement.style.display = 'none'
+    }
+  }
+
   generateCard() {
-    this._checkDeleteElement(this._ownerId, this._delElement);
-    this._checkLikeOwner(this._likeMassive, this._cardLike);
+    this._checkDeleteButton();
+    this._checkLikeOwner();
     this._setEventsListeners();
     this._likesQuantity.textContent = this._likeMassive.length;
     this._nameElement.textContent = this._name;

@@ -52,9 +52,11 @@ const createCardStaticList = new Section({
   }
 }, elements);
 
+let userId = null;
+
 Promise.all([api.getInitialUser(), api.getInitialCards()])
 .then(([user, cards]) => {
-  //const userId = user._id;
+  userId = user._id;
   userDetails.setUserInfo(user.name, user.about);
   userDetails.setUserAvatar(user.avatar);
   createCardStaticList.renderItems(cards);
@@ -154,29 +156,10 @@ function addedLikes(likeElement, cardId, likesQuantity){
 
 function createNewCard(item){
   const card = new Card(
+    userId,
     item, 
     '#element-template', 
     createNewCardObject, 
-    {checkLikeOwner: (likeMassive, cardLike) => {
-      api.getInitialUser()
-      .then((result) => {
-        likeMassive.forEach(element => {
-          if(element._id === result._id){
-            cardLike.classList.add('element__like_active');
-          }
-        })
-      })
-      .catch((error) => console.log(error))
-    }},
-    {checkDeleteElement: (ownerId, delElement) => {
-      api.getInitialUser()
-      .then((result) => {
-        if(result._id != ownerId){
-          delElement.style.display = 'none'
-        }
-      })
-      .catch((error) => console.log(error))
-    }},
     {handleCardClick: (name, link) => {
       createPopupFullImg.openPopup(name, link);
     }},
@@ -188,6 +171,7 @@ function createNewCard(item){
           card.submitCardDelete();
           deleteCard.closePopup();
         })
+        .catch((error) => console.log(error))
       })
       }
     },
