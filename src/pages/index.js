@@ -132,6 +132,7 @@ avatarContainer.addEventListener('click', openPopupAvatarChange)
 avatarContainer.addEventListener('mouseenter', avatarHover);
 avatarContainer.addEventListener('mouseleave', avatarHover);
 
+/*
 function addedLikes(likeElement, cardId, likesQuantity){
   if(likeElement.classList.contains('element__like_active')){
     api.putLike(cardId)
@@ -147,7 +148,7 @@ function addedLikes(likeElement, cardId, likesQuantity){
     .catch((error) => console.log(error));
   }
 }
-
+*/
 function createNewCard(item){
   const card = new Card(
     userId,
@@ -169,9 +170,22 @@ function createNewCard(item){
       })
       }
     },
-    {handleCardLike: (likeElement, cardId, likesQuantity) => {
-      likeElement.classList.toggle('element__like_active');
-      addedLikes(likeElement, cardId, likesQuantity);
+    {handleCardLike: (likeButton, likesQuantity, card, isLiked) => {
+      if(isLiked){
+        api.deleteLike(card._id)
+        .then((result) => {
+        likesQuantity.textContent = result.likes.length;
+        likeButton.classList.remove('element__like_active')
+    })
+    .catch((error) => console.log(error));
+      }else{
+        api.putLike(card._id)
+        .then((result) => {
+        likesQuantity.textContent = result.likes.length;
+        likeButton.classList.add('element__like_active')
+    })
+    .catch((error) => console.log(error));
+      }
     }});
   const cardElement = card.generateCard();
   return cardElement

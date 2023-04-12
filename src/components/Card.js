@@ -26,7 +26,7 @@ class Card{
 
   _setEventsListeners(){
     this._likeButton.addEventListener('click', () => {
-      this._handleCardLike(this._likeButton, this._id, this._likesQuantity);
+      this._handleCardLike(this._likeButton, this._likesQuantity, this, this.isLiked());
     });
 
     this._delElement.addEventListener('click', () => {
@@ -36,6 +36,15 @@ class Card{
     this._photoElement.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
     });
+  }
+
+  isLiked(){
+    let isLiked = false;
+    if(this._likeButton.classList.contains('element__like_active')){
+      isLiked = true;
+    }
+
+    return isLiked
   }
 
   _getTemplate() {
