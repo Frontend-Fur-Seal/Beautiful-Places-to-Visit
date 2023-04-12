@@ -26,7 +26,7 @@ class Card{
 
   _setEventsListeners(){
     this._likeButton.addEventListener('click', () => {
-      this._handleCardLike(this._likeButton, this._likesQuantity, this, this.isLiked());
+      this._handleCardLike(this, this.isLiked());
     });
 
     this._delElement.addEventListener('click', () => {
@@ -43,8 +43,13 @@ class Card{
     if(this._likeButton.classList.contains('element__like_active')){
       isLiked = true;
     }
-
     return isLiked
+  }
+
+
+  toggleLike(result){
+    this._likesQuantity.textContent = result.likes.length;
+    this._likeButton.classList.toggle('element__like_active');
   }
 
   _getTemplate() {

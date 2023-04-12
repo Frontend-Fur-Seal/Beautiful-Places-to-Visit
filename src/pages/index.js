@@ -141,19 +141,17 @@ function createNewCard(item){
       })
       }
     },
-    {handleCardLike: (likeButton, likesQuantity, card, isLiked) => {
+    {handleCardLike: (card, isLiked) => {
       if(isLiked){
         api.deleteLike(card._id)
         .then((result) => {
-        likesQuantity.textContent = result.likes.length;
-        likeButton.classList.remove('element__like_active')
+          card.toggleLike(result)
     })
     .catch((error) => console.log(error));
       }else{
         api.putLike(card._id)
         .then((result) => {
-        likesQuantity.textContent = result.likes.length;
-        likeButton.classList.add('element__like_active')
+          card.toggleLike(result)
     })
     .catch((error) => console.log(error));
       }
