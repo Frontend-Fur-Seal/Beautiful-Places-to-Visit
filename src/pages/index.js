@@ -118,37 +118,8 @@ function openPopupAvatarChange(){
 
 createPopupAvatarEdit.setEventListeners(); 
 
-function avatarHover(evt){
- if (evt.type == 'mouseenter'){
-  changeAvatarButton.style.zIndex = '10';
-  profileAvatar.style.opacity = '.8';
- }if (evt.type == 'mouseleave'){
-  changeAvatarButton.style.zIndex = '1';
-  profileAvatar.style.opacity = '1';
- }
-}
-
 avatarContainer.addEventListener('click', openPopupAvatarChange)
-avatarContainer.addEventListener('mouseenter', avatarHover);
-avatarContainer.addEventListener('mouseleave', avatarHover);
 
-/*
-function addedLikes(likeElement, cardId, likesQuantity){
-  if(likeElement.classList.contains('element__like_active')){
-    api.putLike(cardId)
-    .then((result) => {
-      likesQuantity.textContent = result.likes.length;
-    })
-    .catch((error) => console.log(error));
-  }else{
-    api.deleteLike(cardId)
-    .then((result) => {
-      likesQuantity.textContent = result.likes.length;
-    })
-    .catch((error) => console.log(error));
-  }
-}
-*/
 function createNewCard(item){
   const card = new Card(
     userId,
