@@ -9,5 +9,5 @@
 ### Java-Script: 
 * редактирование данных пользователя во всплывающем окне;
 
-* Сайт на github-pages: https://frontend-fur-seal.github.io/Beautiful-Places-to-Visit-in-Russia/
+* [Сайт на github-pages](https://frontend-fur-seal.github.io/Beautiful-Places-to-Visit-in-Russia/)
 
