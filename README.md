@@ -14,5 +14,5 @@
 - Добавление/удаление реакции на карточки
 - Просмотр карточек в большом размере во всплывающем окне
 
-* [Сайт на github-pages](https://frontend-fur-seal.github.io/Beautiful-Places-to-Visit-in-Russia/)
+* [Сайт на github-pages](https://frontend-fur-seal.github.io/Beautiful-Places-to-Visit/)
 
