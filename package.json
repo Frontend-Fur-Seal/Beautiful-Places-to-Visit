@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VladimirSherstnev/Beautiful-Places-to-Visit-in-Russia.git"
+    "url": "git+https://github.com/Frontend-Fur-Seal/Beautiful-Places-to-Visit-in-Russia.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Olga Gvozdeva",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/VladimirSherstnev/Beautiful-Places-to-Visit-in-Russia/issues"
+    "url": "https://github.com/Frontend-Fur-Seal/Beautiful-Places-to-Visit-in-Russia/issues"
   },
-  "homepage": "https://github.com/VladimirSherstnev/Beautiful-Places-to-Visit-in-Russia#readme",
+  "homepage": "https://github.com/Frontend-Fur-Seal/Beautiful-Places-to-Visit-in-Russia#readme",
   "devDependencies": {
     "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
